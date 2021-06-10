@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cfb287da-4879-4f41-b70f-6e0d642f3306" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/images/icons/google_signin_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/icons/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/login-form.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/login-image.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/view/login/desktop_mode.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/view/login/login_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/view/login/mobile_mode.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/view/login/widgets/login_form.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prototype/DBW Project.pdf" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1timaL5sOwC7yFYWYvJSXBvhiPA" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/assets/images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cfb287da-4879-4f41-b70f-6e0d642f3306" name="Default Changelist" comment="" />
+      <created>1623260346145</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623260346145</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="302" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1623260482674">
+      <screen x="0" y="23" width="1280" height="710" />
+    </state>
+    <state x="302" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1280.710@0.23.1280.710" timestamp="1623260482674" />
+  </component>
+</project>
