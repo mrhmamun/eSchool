@@ -1,12 +1,12 @@
-import 'package:eschool/view/login/login_form.dart';
+import 'package:eschool/view/signup/signup_form.dart';
 import 'package:flutter/material.dart';
 
-class MobileMode extends StatefulWidget {
+class MobileSignUpMode extends StatefulWidget {
   @override
-  _MobileModeState createState() => _MobileModeState();
+  _MobileSignUpModeState createState() => _MobileSignUpModeState();
 }
 
-class _MobileModeState extends State<MobileMode> {
+class _MobileSignUpModeState extends State<MobileSignUpMode> {
   @override
   Widget build(BuildContext context) {
     final double widthSize = MediaQuery.of(context).size.width;
@@ -27,7 +27,7 @@ class _MobileModeState extends State<MobileMode> {
                   Image.asset('images/login-form.png',
                       height: heightSize * 0.3, width: widthSize * 0.6),
                   SingleChildScrollView(
-                      child: LoginForm(
+                      child: SignUpForm(
                           0.007,
                           0.04,
                           widthSize * 0.04,

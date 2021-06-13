@@ -1,4 +1,6 @@
+import 'package:eschool/view/home/dashboard_page.dart';
 import 'package:eschool/view/login/login_page.dart';
+import 'package:eschool/view/signup/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -19,6 +21,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'eSchool',
         initialRoute: '/',
-        routes: {'/': (context) => LoginPage()});
+        routes: {
+          '/': (context) => LoginPage(),
+          '/signup': (context) => SignUpPage(),
+          '/dashboard': (context) => DashboardPage()
+        });
   }
 }

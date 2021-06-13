@@ -13,6 +13,18 @@
     </projectState>
   </component>
   <component name="ProjectId" id="1tip2FNCYKiKHSFoS01V7OiUMMO" />
+  <component name="PropertiesComponent">
+    <property name="memory.settings.postsync.last.time.stamp" value="1623584625062" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <created>1623261554569</created>

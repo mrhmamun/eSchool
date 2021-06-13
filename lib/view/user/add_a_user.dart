@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eschool/global/globals.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,16 +10,18 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:uuid/uuid.dart';
 
-class VideoPage extends StatefulWidget {
+class AddAUser extends StatefulWidget {
   @override
-  _VideoPageState createState() => _VideoPageState();
+  _AddAUserState createState() => _AddAUserState();
 }
 
-class _VideoPageState extends State<VideoPage> {
-  TextEditingController? addVideoController;
-  TextEditingController? addVideoTitleController;
-  TextEditingController? addVideoDescController;
-  TextEditingController? addChordsAndLyricsController;
+class _AddAUserState extends State<AddAUser> {
+  TextEditingController? addUserNameController;
+  TextEditingController? addFirstNameController;
+  TextEditingController? addLastNameController;
+  TextEditingController? addPasswordController;
+  TextEditingController? addEmailController;
+  TextEditingController? addBioController;
   String? _addVideo;
   String? _title;
   String? _desc;
@@ -34,9 +35,11 @@ class _VideoPageState extends State<VideoPage> {
   String? _videoVersion; //
   int? answerIndex;
   int? videoVersionAnswerIndex;
-  List<String> _videoForList = [
-    'Instrumental',
-    'Vocal Version',
+  List<String> _userTypeList = [
+    'Admin',
+    // 'Super Admin',
+    'Student',
+    'Teacher',
   ]; //
   List<String> _videoVersionList = [
     'Free',
@@ -47,10 +50,12 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void initState() {
-    addVideoController = TextEditingController(text: _addVideo);
-    addVideoTitleController = TextEditingController();
-    addVideoDescController = TextEditingController();
-    addChordsAndLyricsController = TextEditingController();
+    addUserNameController = TextEditingController();
+    addFirstNameController = TextEditingController();
+    addLastNameController = TextEditingController();
+    addPasswordController = TextEditingController();
+    addEmailController = TextEditingController();
+    addBioController = TextEditingController();
 
     // TODO: implement initState
     super.initState();
@@ -58,10 +63,12 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void dispose() {
-    addVideoController?.dispose();
-    addVideoTitleController?.dispose();
-    addVideoDescController?.dispose();
-    addChordsAndLyricsController?.dispose();
+    addUserNameController?.dispose();
+    addFirstNameController?.dispose();
+    addLastNameController?.dispose();
+    addPasswordController?.dispose();
+    addEmailController?.dispose();
+    addBioController?.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -107,7 +114,7 @@ class _VideoPageState extends State<VideoPage> {
                                   ),
                                   child: Center(
                                       child: Text(
-                                    'Title: ',
+                                    'First Name: ',
                                     style: TextStyle(color: Colors.black87),
                                   )),
                                 ),
@@ -116,10 +123,10 @@ class _VideoPageState extends State<VideoPage> {
                                       200,
                                   height: 50,
                                   child: TextField(
-                                    controller: addVideoTitleController,
+                                    controller: addFirstNameController,
                                     showCursor: true,
                                     decoration: InputDecoration(
-                                      hintText: 'Add Video Title',
+                                      hintText: 'Write user first name',
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(20),
@@ -149,6 +156,291 @@ class _VideoPageState extends State<VideoPage> {
                               children: [
                                 Container(
                                   width: MediaQuery.of(context).size.width / 10,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      bottomLeft: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    'Last Name: ',
+                                    style: TextStyle(color: Colors.black87),
+                                  )),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 2 -
+                                      200,
+                                  height: 50,
+                                  child: TextField(
+                                    controller: addLastNameController,
+                                    showCursor: true,
+                                    decoration: InputDecoration(
+                                      hintText: 'Write user last name',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      // suffix: FloatingActionButton(
+                                      //   child: Icon(Icons.add_circle),
+                                      //   onPressed: () {},
+                                      // ),
+                                      // suffixIcon: Icon(Icons.add_circle),
+                                    ),
+                                    onChanged: (value) {
+                                      _title = value;
+                                      print(_title);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 10,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      bottomLeft: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    'Username: ',
+                                    style: TextStyle(color: Colors.black87),
+                                  )),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 2 -
+                                      200,
+                                  height: 50,
+                                  child: TextField(
+                                    controller: addUserNameController,
+                                    showCursor: true,
+                                    decoration: InputDecoration(
+                                      hintText: 'Write username',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      // suffix: FloatingActionButton(
+                                      //   child: Icon(Icons.add_circle),
+                                      //   onPressed: () {},
+                                      // ),
+                                      // suffixIcon: Icon(Icons.add_circle),
+                                    ),
+                                    onChanged: (value) {
+                                      _title = value;
+                                      print(_title);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 10,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      bottomLeft: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    'Email: ',
+                                    style: TextStyle(color: Colors.black87),
+                                  )),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 2 -
+                                      200,
+                                  height: 50,
+                                  child: TextField(
+                                    controller: addEmailController,
+                                    showCursor: true,
+                                    decoration: InputDecoration(
+                                      hintText: 'User email',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      // suffix: FloatingActionButton(
+                                      //   child: Icon(Icons.add_circle),
+                                      //   onPressed: () {},
+                                      // ),
+                                      // suffixIcon: Icon(Icons.add_circle),
+                                    ),
+                                    onChanged: (value) {
+                                      _title = value;
+                                      print(_title);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 10,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      bottomLeft: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    'Password: ',
+                                    style: TextStyle(color: Colors.black87),
+                                  )),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 2 -
+                                      200,
+                                  height: 50,
+                                  child: TextField(
+                                    controller: addPasswordController,
+                                    showCursor: true,
+                                    decoration: InputDecoration(
+                                      hintText: 'User password',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      // suffix: FloatingActionButton(
+                                      //   child: Icon(Icons.add_circle),
+                                      //   onPressed: () {},
+                                      // ),
+                                      // suffixIcon: Icon(Icons.add_circle),
+                                    ),
+                                    onChanged: (value) {
+                                      _title = value;
+                                      print(_title);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 10,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        bottomLeft: Radius.circular(20),
+                                      ),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      'User Type',
+                                      style: TextStyle(color: Colors.black87),
+                                    )),
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    // width: 300,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            200,
+
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.grey, width: 1),
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomRight: Radius.circular(20),
+                                        )),
+                                    child: DropdownButtonHideUnderline(
+                                      child: new DropdownButton<String>(
+                                        hint: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5),
+                                          child: Text('Select User Type'),
+                                        ),
+                                        value: _videoFor,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _videoFor = value.toString();
+                                          });
+
+                                          if (_videoFor == "Instrumental") {
+                                            setState(() {
+                                              answerIndex = 1;
+                                            });
+                                          } else if (_videoFor ==
+                                              "Vocal Version") {
+                                            setState(() {
+                                              answerIndex = 2;
+                                            });
+                                          }
+                                        },
+                                        items: _userTypeList.map((value) {
+                                          return new DropdownMenuItem<String>(
+                                            value: value.toString(),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: new Text(
+                                                value.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black87),
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  ),
+                                ]),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 10,
                                   height: 150,
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade300,
@@ -159,7 +451,7 @@ class _VideoPageState extends State<VideoPage> {
                                   ),
                                   child: Center(
                                       child: Text(
-                                    'Description: ',
+                                    'Bio: ',
                                     style: TextStyle(color: Colors.black87),
                                   )),
                                 ),
@@ -168,11 +460,11 @@ class _VideoPageState extends State<VideoPage> {
                                       200,
                                   height: 150,
                                   child: TextField(
-                                    controller: addVideoDescController,
+                                    controller: addBioController,
                                     showCursor: true,
                                     maxLines: 10,
                                     decoration: InputDecoration(
-                                      hintText: 'Add Video Description',
+                                      hintText: 'User short Bio',
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(20),
@@ -196,61 +488,7 @@ class _VideoPageState extends State<VideoPage> {
                             SizedBox(
                               height: 20,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: MediaQuery.of(context).size.width / 10,
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade300,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      bottomLeft: Radius.circular(20),
-                                    ),
-                                  ),
-                                  child: Center(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Chords & Lyrics : ',
-                                      style: TextStyle(color: Colors.black87),
-                                    ),
-                                  )),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width / 2 -
-                                      200,
-                                  height: 200,
-                                  child: TextField(
-                                    controller: addChordsAndLyricsController,
-                                    showCursor: true,
-                                    maxLines: 10,
-                                    decoration: InputDecoration(
-                                      hintText: 'Add Chords And Lyrics',
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(20),
-                                          bottomRight: Radius.circular(20),
-                                        ),
-                                      ),
-                                      // suffix: FloatingActionButton(
-                                      //   child: Icon(Icons.add_circle),
-                                      //   onPressed: () {},
-                                      // ),
-                                      // suffixIcon: Icon(Icons.add_circle),
-                                    ),
-                                    onChanged: (value) {
-                                      _chordsAndLyrics = value;
-                                      print(_chordsAndLyrics);
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
+
                             Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -268,433 +506,7 @@ class _VideoPageState extends State<VideoPage> {
                                     ),
                                     child: Center(
                                         child: Text(
-                                      'Category: ',
-                                      style: TextStyle(color: Colors.black87),
-                                    )),
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            200,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 1),
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(20),
-                                          bottomRight: Radius.circular(20),
-                                        )),
-                                    child: StreamBuilder(
-                                      stream: Globals.categoryRef?.snapshots(),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<QuerySnapshot>
-                                              snapshot) {
-                                        print(snapshot.data?.docs.length);
-                                        if (snapshot.hasError) {
-                                          return Text('Something went wrong');
-                                        }
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Text("Loading");
-                                        }
-                                        return DropdownButtonHideUnderline(
-                                          child: DropdownButton(
-                                            hint: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 5),
-                                              child: Text(
-                                                  'Please choose a Category'),
-                                            ), // Not necessary for Option 1
-                                            value: _categoryValue,
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                _categoryValue =
-                                                    newValue.toString();
-                                              });
-                                            },
-                                            items: snapshot.data!.docs
-                                                .map((location) {
-                                              return DropdownMenuItem(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5),
-                                                  child: new Text(
-                                                      location['category']
-                                                          .toString()),
-                                                ),
-                                                value: location['category']
-                                                    .toString(),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ]),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            // Row(
-                            //     mainAxisAlignment:
-                            //         MainAxisAlignment.spaceBetween,
-                            //     children: [
-                            //       Container(
-                            //         width:
-                            //             MediaQuery.of(context).size.width / 10,
-                            //         height: 50,
-                            //         decoration: BoxDecoration(
-                            //           color: Colors.grey.shade300,
-                            //           borderRadius: BorderRadius.only(
-                            //             topLeft: Radius.circular(20),
-                            //             bottomLeft: Radius.circular(20),
-                            //           ),
-                            //         ),
-                            //         child: Center(
-                            //             child: Text(
-                            //           'Grade: ',
-                            //           style: TextStyle(color: Colors.black87),
-                            //         )),
-                            //       ),
-                            //       Container(
-                            //         width:
-                            //             MediaQuery.of(context).size.width / 2 -
-                            //                 200,
-                            //         height: 50,
-                            //         decoration: BoxDecoration(
-                            //             border: Border.all(
-                            //                 color: Colors.grey, width: 1),
-                            //             borderRadius: BorderRadius.only(
-                            //               topRight: Radius.circular(20),
-                            //               bottomRight: Radius.circular(20),
-                            //             )),
-                            //         child: StreamBuilder(
-                            //           stream:
-                            //               Globals.subCategoryRef?.snapshots(),
-                            //           builder: (BuildContext context,
-                            //               AsyncSnapshot<QuerySnapshot>
-                            //                   snapshot) {
-                            //             print(snapshot.data?.docs.length);
-                            //             if (snapshot.hasError) {
-                            //               return Text('Something went wrong');
-                            //             }
-                            //             if (snapshot.connectionState ==
-                            //                 ConnectionState.waiting) {
-                            //               return Text("Loading");
-                            //             }
-                            //             return DropdownButtonHideUnderline(
-                            //               child: DropdownButton(
-                            //                 hint: Padding(
-                            //                   padding: const EdgeInsets.only(
-                            //                       left: 5),
-                            //                   child:
-                            //                       Text('Please choose a Grade'),
-                            //                 ), // Not necessary for Option 1
-                            //                 value: _gradeValue,
-                            //                 onChanged: (newValue) {
-                            //                   setState(() {
-                            //                     _gradeValue =
-                            //                         newValue.toString();
-                            //                   });
-                            //                 },
-                            //                 items: snapshot.data!.docs
-                            //                     .map((location) {
-                            //                   return DropdownMenuItem(
-                            //                     child: Padding(
-                            //                       padding:
-                            //                           const EdgeInsets.only(
-                            //                               left: 5),
-                            //                       child: new Text(
-                            //                           location['grade']
-                            //                               .toString()),
-                            //                     ),
-                            //                     value: location['grade']
-                            //                         .toString(),
-                            //                   );
-                            //                 }).toList(),
-                            //               ),
-                            //             );
-                            //           },
-                            //         ),
-                            //       ),
-                            //     ]),
-                            // SizedBox(
-                            //   height: 20,
-                            // ),
-                            // Row(
-                            //     mainAxisAlignment:
-                            //         MainAxisAlignment.spaceBetween,
-                            //     children: [
-                            //       Container(
-                            //         width:
-                            //             MediaQuery.of(context).size.width / 10,
-                            //         height: 50,
-                            //         decoration: BoxDecoration(
-                            //           color: Colors.grey.shade300,
-                            //           borderRadius: BorderRadius.only(
-                            //             topLeft: Radius.circular(20),
-                            //             bottomLeft: Radius.circular(20),
-                            //           ),
-                            //         ),
-                            //         child: Center(
-                            //             child: Text(
-                            //           'Subject: ',
-                            //           style: TextStyle(color: Colors.black87),
-                            //         )),
-                            //       ),
-                            //       Container(
-                            //         width:
-                            //             MediaQuery.of(context).size.width / 2 -
-                            //                 200,
-                            //         height: 50,
-                            //         decoration: BoxDecoration(
-                            //             border: Border.all(
-                            //                 color: Colors.grey, width: 1),
-                            //             borderRadius: BorderRadius.only(
-                            //               topRight: Radius.circular(20),
-                            //               bottomRight: Radius.circular(20),
-                            //             )),
-                            //         child: StreamBuilder(
-                            //           stream: Globals.subjectRef?.snapshots(),
-                            //           builder: (BuildContext context,
-                            //               AsyncSnapshot<QuerySnapshot>
-                            //                   snapshot) {
-                            //             print(snapshot.data?.docs.length);
-                            //             if (snapshot.hasError) {
-                            //               return Text('Something went wrong');
-                            //             }
-                            //             if (snapshot.connectionState ==
-                            //                 ConnectionState.waiting) {
-                            //               return Text("Loading");
-                            //             }
-                            //             return DropdownButtonHideUnderline(
-                            //               child: DropdownButton(
-                            //                 hint: Padding(
-                            //                   padding: const EdgeInsets.only(
-                            //                       left: 5),
-                            //                   child: Text(
-                            //                       'Please choose a Subject'),
-                            //                 ), // Not necessary for Option 1
-                            //                 value: _subjectValue,
-                            //                 onChanged: (newValue) {
-                            //                   setState(() {
-                            //                     _subjectValue =
-                            //                         newValue.toString();
-                            //                   });
-                            //                 },
-                            //                 items: snapshot.data!.docs
-                            //                     .map((location) {
-                            //                   return DropdownMenuItem(
-                            //                     child: Padding(
-                            //                       padding:
-                            //                           const EdgeInsets.only(
-                            //                               left: 5),
-                            //                       child: new Text(
-                            //                           location['subject']
-                            //                               .toString()),
-                            //                     ),
-                            //                     value: location['subject']
-                            //                         .toString(),
-                            //                   );
-                            //                 }).toList(),
-                            //               ),
-                            //             );
-                            //           },
-                            //         ),
-                            //       ),
-                            //     ]),
-                            // SizedBox(
-                            //   height: 20,
-                            // ),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 10,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade300,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        bottomLeft: Radius.circular(20),
-                                      ),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                      'Type',
-                                      style: TextStyle(color: Colors.black87),
-                                    )),
-                                  ),
-                                  Container(
-                                    height: 50,
-                                    // width: 300,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            200,
-
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 1),
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(20),
-                                          bottomRight: Radius.circular(20),
-                                        )),
-                                    child: DropdownButtonHideUnderline(
-                                      child: new DropdownButton<String>(
-                                        hint: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5),
-                                          child: Text('Select Video Type'),
-                                        ),
-                                        value: _videoFor,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _videoFor = value.toString();
-                                          });
-
-                                          if (_videoFor == "Instrumental") {
-                                            setState(() {
-                                              answerIndex = 1;
-                                            });
-                                          } else if (_videoFor ==
-                                              "Vocal Version") {
-                                            setState(() {
-                                              answerIndex = 2;
-                                            });
-                                          }
-                                        },
-                                        items: _videoForList.map((value) {
-                                          return new DropdownMenuItem<String>(
-                                            value: value.toString(),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 5),
-                                              child: new Text(
-                                                value.toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black87),
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 10,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade300,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        bottomLeft: Radius.circular(20),
-                                      ),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                      'Version',
-                                      style: TextStyle(color: Colors.black87),
-                                    )),
-                                  ),
-                                  Container(
-                                    height: 50,
-                                    // width: 300,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            200,
-
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 1),
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(20),
-                                          bottomRight: Radius.circular(20),
-                                        )),
-                                    child: DropdownButtonHideUnderline(
-                                      child: new DropdownButton<String>(
-                                        hint: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5),
-                                          child: Text('Select Video Version'),
-                                        ),
-                                        value: _videoVersion,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _videoVersion = value.toString();
-                                          });
-
-                                          if (_videoVersion == "Free") {
-                                            setState(() {
-                                              videoVersionAnswerIndex = 1;
-                                            });
-                                          } else if (_videoVersion == "Paid") {
-                                            setState(() {
-                                              videoVersionAnswerIndex = 2;
-                                            });
-                                          }
-                                          // else if (_videoFor == "Advance") {
-                                          //   setState(() {
-                                          //     answerIndex = 3;
-                                          //   }
-                                          //
-                                          //   );
-                                          // }
-                                          //
-                                          //
-                                          // print(value);
-                                          // print(answerIndex);
-                                        },
-                                        items: _videoVersionList.map((value) {
-                                          return new DropdownMenuItem<String>(
-                                            value: value.toString(),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 5),
-                                              child: new Text(
-                                                value.toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black87),
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 10,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade300,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        bottomLeft: Radius.circular(20),
-                                      ),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                      'Thumbnail: ',
+                                      'Profile Photo: ',
                                       style: TextStyle(color: Colors.black87),
                                     )),
                                   ),
@@ -720,7 +532,7 @@ class _VideoPageState extends State<VideoPage> {
                                           padding:
                                               const EdgeInsets.only(left: 8.0),
                                           child: Text(
-                                            'Add a Thumbnail',
+                                            'Add a Photo',
                                             style: TextStyle(
                                                 color: Colors.grey.shade700),
                                           ),
@@ -846,7 +658,7 @@ class _VideoPageState extends State<VideoPage> {
                                   ),
                                   child: Center(
                                       child: Text(
-                                    'URL: ',
+                                    'Public Url: ',
                                     style: TextStyle(color: Colors.black87),
                                   )),
                                 ),
@@ -855,10 +667,10 @@ class _VideoPageState extends State<VideoPage> {
                                       200,
                                   height: 50,
                                   child: TextField(
-                                    controller: addVideoController,
+                                    controller: addUserNameController,
                                     showCursor: true,
                                     decoration: InputDecoration(
-                                      hintText: 'Add a Yt Video Url',
+                                      hintText: 'Add a Social Url',
                                       // errorText: validateText(
                                       //     addVideoController?.text, 'URL'),
                                       border: OutlineInputBorder(
@@ -935,10 +747,11 @@ class _VideoPageState extends State<VideoPage> {
                                     );
 
                                     setState(() {
-                                      addVideoTitleController?.clear();
-                                      addVideoDescController?.clear();
-                                      addVideoController?.clear();
-                                      addChordsAndLyricsController?.clear();
+                                      addFirstNameController?.clear();
+                                      addLastNameController?.clear();
+                                      addPasswordController?.clear();
+                                      addUserNameController?.clear();
+                                      addEmailController?.clear();
                                       _categoryValue = null;
                                       // _gradeValue = null;
                                       // _subjectValue = null;

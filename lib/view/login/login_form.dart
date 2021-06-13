@@ -1,11 +1,10 @@
+import 'package:eschool/global/globals.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-
+class LoginForm extends StatefulWidget {
   final paddingTopForm,
       fontSizeTextField,
       fontSizeTextFormField,
@@ -32,6 +31,21 @@ class LoginForm extends StatelessWidget {
       this.errorFormMessage);
 
   @override
+  _LoginFormState createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  final _usernameController = TextEditingController();
+
+  final _passwordController = TextEditingController();
+  String? email;
+  String? password;
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
+
+  @override
   Widget build(BuildContext context) {
     final double widthSize = MediaQuery.of(context).size.width;
     final double heightSize = MediaQuery.of(context).size.height;
@@ -42,7 +56,7 @@ class LoginForm extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: widthSize * 0.05,
                 right: widthSize * 0.05,
-                top: heightSize * paddingTopForm),
+                top: heightSize * widget.paddingTopForm),
             child: Column(children: <Widget>[
               Align(
                   alignment: Alignment.centerLeft,
@@ -53,6 +67,11 @@ class LoginForm extends StatelessWidget {
                           color: Colors.white))),
               TextFormField(
                   controller: _usernameController,
+                  onChanged: (value) {
+                    setState(() {
+                      email = value;
+                    });
+                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter your Email!';
@@ -72,17 +91,18 @@ class LoginForm extends StatelessWidget {
                     labelStyle: TextStyle(color: Colors.white),
                     errorStyle: TextStyle(
                         color: Colors.white,
-                        fontSize: widthSize * errorFormMessage),
+                        fontSize: widthSize * widget.errorFormMessage),
                     prefixIcon: Icon(
                       Icons.email_outlined,
-                      size: widthSize * iconFormSize,
+                      size: widthSize * widget.iconFormSize,
                       color: Colors.white,
                     ),
                   ),
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      color: Colors.white, fontSize: fontSizeTextFormField)),
-              SizedBox(height: heightSize * spaceBetweenFields),
+                      color: Colors.white,
+                      fontSize: widget.fontSizeTextFormField)),
+              SizedBox(height: heightSize * widget.spaceBetweenFields),
               Align(
                   alignment: Alignment.centerLeft,
                   child: Text('Password',
@@ -92,6 +112,11 @@ class LoginForm extends StatelessWidget {
                           color: Colors.white))),
               TextFormField(
                   controller: _passwordController,
+                  onChanged: (value) {
+                    setState(() {
+                      password = value;
+                    });
+                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Password!';
@@ -111,35 +136,84 @@ class LoginForm extends StatelessWidget {
                     labelStyle: TextStyle(color: Colors.white),
                     errorStyle: TextStyle(
                         color: Colors.white,
-                        fontSize: widthSize * errorFormMessage),
+                        fontSize: widthSize * widget.errorFormMessage),
                     prefixIcon: Icon(
                       Icons.lock,
-                      size: widthSize * iconFormSize,
+                      size: widthSize * widget.iconFormSize,
                       color: Colors.white,
                     ),
                   ),
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      color: Colors.white, fontSize: fontSizeTextFormField)),
-              SizedBox(height: heightSize * spaceBetweenFieldAndButton),
+                      color: Colors.white,
+                      fontSize: widget.fontSizeTextFormField)),
+              SizedBox(height: heightSize * widget.spaceBetweenFieldAndButton),
               FlatButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5)),
-                  padding:
-                      EdgeInsets.fromLTRB(widthButton, 15, widthButton, 15),
+                  padding: EdgeInsets.fromLTRB(
+                      widget.widthButton, 15, widget.widthButton, 15),
                   color: Colors.white,
                   onPressed: () async {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      try {
+                        UserCredential userCredential = await FirebaseAuth
+                            .instance
+                            .signInWithEmailAndPassword(
+                                email: email.toString(),
+                                password: password.toString());
+
+                        var user = userCredential.user;
+
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+
+                        prefs.setBool('isLoggedIn', true);
+                        prefs.setString('email', email.toString());
+
+                        Globals.userRef
+                            .doc(Globals.auth.currentUser!.uid)
+                            .get()
+                            .then((value) {
+                          setState(() {});
+                        });
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          Globals.customSnackBar(
+                            content: 'User $email LoggedIn Successful',
+                          ),
+                        );
+
+                        Navigator.pushNamed(context, '/dashboard',
+                            arguments: {});
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          print('No user found for that email.');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            Globals.customSnackBar(
+                              content: 'No user found for that email.',
+                            ),
+                          );
+                        } else if (e.code == 'wrong-password') {
+                          print('Wrong password provided for that user.');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            Globals.customSnackBar(
+                              content: 'Wrong password provided for that user.',
+                            ),
+                          );
+                        }
+                      }
+                    }
                   },
                   child: Text('Login',
                       style: TextStyle(
-                          fontSize: widthSize * fontSizeButton,
+                          fontSize: widthSize * widget.fontSizeButton,
                           fontFamily: 'Poppins',
                           color: Color.fromRGBO(41, 187, 255, 1)))),
               SizedBox(height: heightSize * 0.01),
               Text('Forgot Password?',
                   style: TextStyle(
-                      fontSize: widthSize * fontSizeForgotPassword,
+                      fontSize: widthSize * widget.fontSizeForgotPassword,
                       fontFamily: 'Poppins',
                       color: Colors.white)),
               SizedBox(height: 10),

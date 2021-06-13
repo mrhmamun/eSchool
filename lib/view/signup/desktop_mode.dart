@@ -1,15 +1,13 @@
-import 'package:eschool/view/login/login_form.dart';
+import 'package:eschool/view/signup/signup_form.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class DesktopMode extends StatefulWidget {
+class DesktopSignUpMode extends StatefulWidget {
   @override
-  _DesktopModeState createState() => _DesktopModeState();
+  _DesktopSignUpModeState createState() => _DesktopSignUpModeState();
 }
 
-class _DesktopModeState extends State<DesktopMode> {
-  // bool isLoggedIn = false;
-
+class _DesktopSignUpModeState extends State<DesktopSignUpMode> {
   @override
   Widget build(BuildContext context) {
     final double widthSize = MediaQuery.of(context).size.width;
@@ -59,7 +57,7 @@ class _DesktopModeState extends State<DesktopMode> {
                                             height: heightSize * 0.1,
                                             width: widthSize * 0.15),
                                     SizedBox(height: 20),
-                                    LoginForm(0, 0, 16, 0.04, 0.01, 0.04, 75,
+                                    SignUpForm(0, 0, 16, 0.04, 0.01, 0.04, 75,
                                         0.01, 0.007, 0.01, 0.006)
                                   ])))
                     ])))));

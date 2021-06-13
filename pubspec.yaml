@@ -45,6 +45,9 @@ dependencies:
   uuid: ^3.0.4
   flutter_youtube_downloader: ^0.0.3
   url_strategy: ^0.2.0
+  get: ^4.1.4
+  crypto: ^3.0.1
+  password: ^1.0.0
 #  image_picker: ^0.7.5+2
 
 
