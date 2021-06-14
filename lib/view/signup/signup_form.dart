@@ -1,10 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eschool/global/globals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:password/password.dart';
+import 'package:ninja/symmetric/aes/aes.dart';
 
 class SignUpForm extends StatefulWidget {
   final paddingTopForm,
@@ -171,9 +173,16 @@ class _SignUpFormState extends State<SignUpForm> {
                       setState(() {
                         isLoading = true;
                       });
-                      var hashedPassword =
-                          Password.hash(password, new PBKDF2());
+                      // var hashedPassword =
+                      //     Password.hash(password, new PBKDF2());
+                      // print(hashedPassword);
+
+                      final aes = AESKey(
+                          Uint8List.fromList(List.generate(16, (i) => i)));
+                      String hashedPassword = aes.encryptToBase64(password);
                       print(hashedPassword);
+                      // String decoded = aes.decryptToUtf8(hashedPassword);
+                      // print(decoded);
 
                       if (_formKey.currentState!.validate()) {
                         try {

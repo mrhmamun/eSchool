@@ -3,7 +3,7 @@ import 'package:eschool/global/globals.dart';
 import 'package:eschool/view/home/home_page.dart';
 import 'package:eschool/view/login/login_page.dart';
 import 'package:eschool/view/user/add_a_user.dart';
-import 'package:eschool/view/videos/all_videos.dart';
+import 'package:eschool/view/user/all_users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -405,7 +405,7 @@ class _DashboardPageState extends State<DashboardPage> {
       case 1:
         return AddAUser();
       case 2:
-        return AllVideos();
+        return AllUsers();
       // case 5:
       //   return AddTestQuestion();
       default:

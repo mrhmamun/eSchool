@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:password/password.dart';
+import 'package:ninja/symmetric/aes/aes.dart';
 import 'package:uuid/uuid.dart';
 
 class AddAUser extends StatefulWidget {
@@ -43,7 +43,7 @@ class _AddAUserState extends State<AddAUser> {
     // 'Super Admin',
     'Student',
     'Teacher',
-  ]; //
+  ];
 
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
@@ -799,9 +799,18 @@ class _AddAUserState extends State<AddAUser> {
                                       ),
                                     );
                                   } else {
-                                    var hashedPassword =
-                                        Password.hash(_password, new PBKDF2());
+                                    // var hashedPassword =
+                                    //     Password.hash(_password, new PBKDF2());
+                                    // print(hashedPassword);
+
+                                    final aes = AESKey(Uint8List.fromList(
+                                        List.generate(16, (i) => i)));
+                                    String hashedPassword =
+                                        aes.encryptToBase64(_password);
                                     print(hashedPassword);
+                                    String decoded =
+                                        aes.decryptToUtf8(hashedPassword);
+                                    print(decoded);
 
                                     if (_formKey.currentState!.validate()) {
                                       try {
