@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eschool/global/globals.dart';
-import 'package:eschool/view/user/edit_user_details.dart';
+import 'package:eschool/view/admin/user/edit_user_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -202,6 +202,8 @@ class _AllUsersState extends State<AllUsers> {
                                     snapshot.data!.docs[index]['publicUrl'];
                                 var isAdmin =
                                     snapshot.data!.docs[index]['isAdmin'];
+                                var classValue =
+                                    snapshot.data!.docs[index]['class'];
                                 return Padding(
                                   padding: EdgeInsets.all(5),
                                   child: Row(
@@ -378,6 +380,8 @@ class _AllUsersState extends State<AllUsers> {
                                                             publicUrl:
                                                                 publicUrl,
                                                             isAdmin: isAdmin,
+                                                            classValue:
+                                                                classValue,
                                                           )));
                                             },
                                             child: Container(

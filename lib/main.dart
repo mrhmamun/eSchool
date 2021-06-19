@@ -1,9 +1,11 @@
-import 'package:eschool/view/home/dashboard_page.dart';
+import 'package:eschool/view/admin/home/dashboard_page.dart';
+import 'package:eschool/view/admin/subjects/edit_subject_details.dart';
+import 'package:eschool/view/admin/user/add_a_user.dart';
+import 'package:eschool/view/admin/user/all_users.dart';
+import 'package:eschool/view/admin/user/edit_user_details.dart';
 import 'package:eschool/view/login/login_page.dart';
 import 'package:eschool/view/signup/signup.dart';
-import 'package:eschool/view/user/add_a_user.dart';
-import 'package:eschool/view/user/all_users.dart';
-import 'package:eschool/view/user/edit_user_details.dart';
+import 'package:eschool/view/teacher/home/teacher_dashboard_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -30,7 +32,9 @@ class MyApp extends StatelessWidget {
           '/dashboard': (context) => DashboardPage(),
           '/addauser': (context) => AddAUser(),
           '/allusers': (context) => AllUsers(),
-          '/edituserdetails': (context) => EditUserDetails()
+          '/edituserdetails': (context) => EditUserDetails(),
+          '/edit-subject-details': (context) => EditSubjectDetails(),
+          '/teacher-dashboard-page': (context) => TeacherDashboardPage(),
         });
   }
 }

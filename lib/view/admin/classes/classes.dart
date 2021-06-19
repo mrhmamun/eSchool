@@ -5,16 +5,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class CategoryPage extends StatefulWidget {
+class ClassPage extends StatefulWidget {
   @override
-  _CategoryPageState createState() => _CategoryPageState();
+  _ClassPageState createState() => _ClassPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
-  TextEditingController? addCategoryController;
-  TextEditingController? editCategoryController;
-  String? addCategory;
-  String? editCategory;
+class _ClassPageState extends State<ClassPage> {
+  TextEditingController? addClassController;
+  TextEditingController? editClassController;
+  String? addClass;
+  String? editClass;
   bool isLoading = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -22,9 +22,9 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   void initState() {
-    addCategoryController = TextEditingController(text: addCategory);
-    editCategoryController = TextEditingController(text: editCategory);
-    // editCategoryController = TextEditingController(text: editCategory);
+    addClassController = TextEditingController(text: addClass);
+    editClassController = TextEditingController(text: editClass);
+    // editClassController = TextEditingController(text: editClass);
 
     // TODO: implement initState
     super.initState();
@@ -32,8 +32,8 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   void dispose() {
-    addCategoryController?.dispose();
-    editCategoryController?.dispose();
+    addClassController?.dispose();
+    editClassController?.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -77,17 +77,17 @@ class _CategoryPageState extends State<CategoryPage> {
                                       200,
                                   height: 50,
                                   child: TextField(
-                                    controller: addCategoryController,
+                                    controller: addClassController,
                                     showCursor: true,
                                     decoration: InputDecoration(
-                                      hintText: 'Add a Category',
+                                      hintText: 'Add a Class',
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(20)),
                                     ),
                                     onChanged: (value) {
-                                      addCategory = value;
-                                      print(addCategory);
+                                      addClass = value;
+                                      print(addClass);
                                     },
                                   ),
                                 ),
@@ -100,31 +100,29 @@ class _CategoryPageState extends State<CategoryPage> {
                                       isLoading = true;
                                     });
 
-                                    if (addCategory == null) {
+                                    if (addClass == null) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         Globals.customSnackBar(
-                                          content: "Category Can't be empty!",
+                                          content: "Class Can't be empty!",
                                         ),
                                       );
                                     } else {
-                                      Globals.categoryRef
-                                          ?.doc(addCategory)
-                                          .set({
-                                        'category': addCategory,
+                                      Globals.classRef?.doc(addClass).set({
+                                        'class': addClass,
                                       }).then((value) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           Globals.customSnackBar(
                                             content:
-                                                'Category $addCategory Added Successfully!',
+                                                'Class $addClass Added Successfully!',
                                           ),
                                         );
                                       });
                                     }
 
                                     setState(() {
-                                      addCategoryController?.clear();
+                                      addClassController?.clear();
                                       isLoading = false;
                                     });
                                   },
@@ -164,12 +162,13 @@ class _CategoryPageState extends State<CategoryPage> {
                         padding: EdgeInsets.all(20),
                         width: MediaQuery.of(context).size.width / 2,
                         child: StreamBuilder<QuerySnapshot>(
-                          stream: Globals.categoryRef?.snapshots(),
+                          stream: Globals.classRef?.snapshots(),
                           builder: (BuildContext context,
                               AsyncSnapshot<QuerySnapshot> snapshot) {
                             print(snapshot.data?.docs.length);
                             if (snapshot.hasError) {
-                              return Text('Something went wrong');
+                              return Center(
+                                  child: Text('Something went wrong'));
                             }
 
                             if (snapshot.connectionState ==
@@ -182,10 +181,10 @@ class _CategoryPageState extends State<CategoryPage> {
                               shrinkWrap: true,
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: (BuildContext context, int index) {
-                                print(snapshot.data!.docs[index]['category']);
+                                print(snapshot.data!.docs[index]['class']);
                                 var item = snapshot.data!.docs[index];
                                 print(item);
-                                newCat = snapshot.data!.docs[index]['category'];
+                                newCat = snapshot.data!.docs[index]['class'];
                                 print(newCat);
 
                                 var newIndex = index + 1;
@@ -217,7 +216,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                             ),
                                             Text(
                                               snapshot.data!.docs[index]
-                                                  ['category'],
+                                                  ['class'],
                                               style: TextStyle(
                                                   color: Colors.white),
                                             ),
@@ -230,8 +229,8 @@ class _CategoryPageState extends State<CategoryPage> {
                                             onTap: () async {
                                               setState(() {
                                                 isLoading = true;
-                                                editCategory = snapshot.data!
-                                                    .docs[index]['category'];
+                                                editClass = snapshot
+                                                    .data!.docs[index]['class'];
                                               });
 
                                               AwesomeDialog(
@@ -266,14 +265,14 @@ class _CategoryPageState extends State<CategoryPage> {
                                                         Container(
                                                           height: 50,
                                                           child: TextFormField(
-                                                            // controller: editCategoryController,
+                                                            // controller: editClassController,
                                                             initialValue:
-                                                                editCategory,
+                                                                editClass,
                                                             showCursor: true,
                                                             decoration:
                                                                 InputDecoration(
                                                               hintText:
-                                                                  'Edit Category',
+                                                                  'Edit Class',
                                                               border: OutlineInputBorder(
                                                                   borderRadius:
                                                                       BorderRadius
@@ -281,10 +280,8 @@ class _CategoryPageState extends State<CategoryPage> {
                                                                               20)),
                                                             ),
                                                             onChanged: (value) {
-                                                              editCategory =
-                                                                  value;
-                                                              print(
-                                                                  editCategory);
+                                                              editClass = value;
+                                                              print(editClass);
                                                             },
                                                           ),
                                                         ),
@@ -293,18 +290,18 @@ class _CategoryPageState extends State<CategoryPage> {
                                                   ),
                                                   btnOkOnPress: () {
                                                     print('Button Tapped');
-                                                    print(editCategory);
+                                                    print(editClass);
 
-                                                    Globals.categoryRef
+                                                    Globals.classRef
                                                         ?.doc(snapshot.data!
                                                                 .docs[index]
-                                                            ['category'])
+                                                            ['class'])
                                                         .delete()
                                                         .then((value) {
-                                                      Globals.categoryRef
-                                                          ?.doc(editCategory)
+                                                      Globals.classRef
+                                                          ?.doc(editClass)
                                                           .set({
-                                                        "category": editCategory
+                                                        "class": editClass
                                                       }).then((value) {
                                                         ScaffoldMessenger.of(
                                                                 context)
@@ -312,23 +309,23 @@ class _CategoryPageState extends State<CategoryPage> {
                                                           Globals
                                                               .customSnackBar(
                                                             content:
-                                                                'Category Edited Successfully!',
+                                                                'Class Edited Successfully!',
                                                           ),
                                                         );
                                                       });
                                                     });
 
-                                                    // Globals.categoryRef
+                                                    // Globals.ClassRef
                                                     //     ?.doc()
                                                     //     .update({
-                                                    //   'category': editCategory
+                                                    //   'Class': editClass
                                                     // }).then((value) {
                                                     //   ScaffoldMessenger.of(
                                                     //           context)
                                                     //       .showSnackBar(
                                                     //     Globals.customSnackBar(
                                                     //       content:
-                                                    //           'Category Edited Successfully!',
+                                                    //           'Class Edited Successfully!',
                                                     //     ),
                                                     //   );
                                                     // });
@@ -368,16 +365,16 @@ class _CategoryPageState extends State<CategoryPage> {
                                                 isLoading = true;
                                               });
 
-                                              Globals.categoryRef
+                                              Globals.classRef
                                                   ?.doc(snapshot.data!
-                                                      .docs[index]['category'])
+                                                      .docs[index]['class'])
                                                   .delete()
                                                   .then((value) {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                   Globals.customSnackBar(
                                                     content:
-                                                        'Category Removed Successfully!',
+                                                        'Class Removed Successfully!',
                                                   ),
                                                 );
                                               });
@@ -412,7 +409,7 @@ class _CategoryPageState extends State<CategoryPage> {
                               // children: snapshot.data!.docs
                               //     .map((DocumentSnapshot document) {
                               //   return new ListTile(
-                              //     title: new Text(document.data()?['category']),
+                              //     title: new Text(document.data()?['Class']),
                               //     // subtitle: new Text(document.data()?['subject']),
                               //   );
                               // }).toList(),

@@ -44,6 +44,7 @@ class _LoginFormState extends State<LoginForm> {
   String? password;
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
+  var userType;
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +156,9 @@ class _LoginFormState extends State<LoginForm> {
                       widget.widthButton, 15, widget.widthButton, 15),
                   color: Colors.white,
                   onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    var userType;
                     if (_formKey.currentState!.validate()) {
                       try {
                         UserCredential userCredential = await FirebaseAuth
@@ -165,27 +169,61 @@ class _LoginFormState extends State<LoginForm> {
 
                         var user = userCredential.user;
 
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-
-                        prefs.setBool('isLoggedIn', true);
-                        prefs.setString('email', email.toString());
-
                         Globals.userRef
                             .doc(Globals.auth.currentUser!.uid)
                             .get()
                             .then((value) {
-                          setState(() {});
+                          print("value['userType']");
+                          print(value['userType']);
+                          setState(() {
+                            userType = value['userType'];
+                          });
+
+                          if (userType == 'Admin') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              Globals.customSnackBar(
+                                content: 'User $email LoggedIn Successful',
+                              ),
+                            );
+                            Navigator.pushNamed(context, '/dashboard',
+                                arguments: {});
+                            prefs.setBool('isLoggedIn', true);
+                            prefs.setString('email', email.toString());
+                            prefs.setString('userType', userType.toString());
+                          } else if (userType == 'Teacher') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              Globals.customSnackBar(
+                                content: 'User $email LoggedIn Successful',
+                              ),
+                            );
+                            Navigator.pushNamed(
+                                context, '/teacher-dashboard-page',
+                                arguments: {});
+                            prefs.setBool('isLoggedIn', true);
+                            prefs.setString('email', email.toString());
+                            prefs.setString('userType', userType.toString());
+                          } else if (userType == 'Student') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              Globals.customSnackBar(
+                                content: 'User $email LoggedIn Successful',
+                              ),
+                            );
+                            Navigator.pushNamed(context, '/dashboard',
+                                arguments: {});
+                            prefs.setBool('isLoggedIn', true);
+                            prefs.setString('email', email.toString());
+                            prefs.setString('userType', userType.toString());
+                          }
+                          // else {
+                          //   print('Something Went wrong, please try again later');
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //     Globals.customSnackBar(
+                          //       content:
+                          //           'Something Went wrong, please try again later',
+                          //     ),
+                          //   );
+                          // }
                         });
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          Globals.customSnackBar(
-                            content: 'User $email LoggedIn Successful',
-                          ),
-                        );
-
-                        Navigator.pushNamed(context, '/dashboard',
-                            arguments: {});
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           print('No user found for that email.');

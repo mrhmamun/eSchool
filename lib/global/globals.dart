@@ -9,8 +9,8 @@ class Globals {
   static final CollectionReference userRef =
       FirebaseFirestore.instance.collection('users');
 
-  static final CollectionReference? categoryRef =
-      FirebaseFirestore.instance.collection('categories');
+  static final CollectionReference? classRef =
+      FirebaseFirestore.instance.collection('classes');
   static final CollectionReference? subCategoryRef =
       FirebaseFirestore.instance.collection('subcategory');
 

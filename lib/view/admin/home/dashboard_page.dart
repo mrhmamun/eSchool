@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eschool/global/globals.dart';
-import 'package:eschool/view/home/home_page.dart';
+import 'package:eschool/view/admin/classes/classes.dart';
+import 'package:eschool/view/admin/home/home_page.dart';
+import 'package:eschool/view/admin/subjects/subjects.dart';
+import 'package:eschool/view/admin/user/add_a_user.dart';
+import 'package:eschool/view/admin/user/all_users.dart';
 import 'package:eschool/view/login/login_page.dart';
-import 'package:eschool/view/user/add_a_user.dart';
-import 'package:eschool/view/user/all_users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,7 @@ class _DashboardPageState extends State<DashboardPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                child: Text('eSchool Admin'),
+                child: Text('eSchool || Admin View'),
               ),
             ],
           ),
@@ -354,16 +356,16 @@ class _DashboardPageState extends State<DashboardPage> {
                         //   selectedIcon: Icon(Icons.account_circle),
                         //   label: Text('Users'),
                         // ),
-                        // NavigationRailDestination(
-                        //   selectedIcon: Icon(Icons.grade),
-                        //   icon: Icon(Icons.grade_outlined),
-                        //   label: Text('Sub Categories'),
-                        // ),
-                        // NavigationRailDestination(
-                        //   selectedIcon: Icon(Icons.book_outlined),
-                        //   icon: Icon(Icons.book),
-                        //   label: Text('Subjects'),
-                        // ),
+                        NavigationRailDestination(
+                          selectedIcon: Icon(Icons.grade),
+                          icon: Icon(Icons.grade_outlined),
+                          label: Text('Classes'),
+                        ),
+                        NavigationRailDestination(
+                          selectedIcon: Icon(Icons.book_outlined),
+                          icon: Icon(Icons.book),
+                          label: Text('Subjects'),
+                        ),
                         NavigationRailDestination(
                           selectedIcon: Icon(Icons.person_add_alt_1_outlined),
                           icon: Icon(Icons.person_add_alt_1),
@@ -396,15 +398,15 @@ class _DashboardPageState extends State<DashboardPage> {
     switch (index) {
       case 0:
         return HomePage();
-      // case 1:
-      //   return CategoryPage();
+      case 1:
+        return ClassPage();
       // case 2:
       //   return SubCategories();
-      // case 3:
-      //   return SubjectPage();
-      case 1:
-        return AddAUser();
       case 2:
+        return SubjectPage();
+      case 3:
+        return AddAUser();
+      case 4:
         return AllUsers();
       // case 5:
       //   return AddTestQuestion();

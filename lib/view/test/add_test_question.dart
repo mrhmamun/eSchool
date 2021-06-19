@@ -228,7 +228,7 @@ class _AddTestQuestionState extends State<AddTestQuestion> {
                                           bottomRight: Radius.circular(20),
                                         )),
                                     child: StreamBuilder(
-                                      stream: Globals.categoryRef?.snapshots(),
+                                      stream: Globals.classRef?.snapshots(),
                                       builder: (BuildContext context,
                                           AsyncSnapshot<QuerySnapshot>
                                               snapshot) {

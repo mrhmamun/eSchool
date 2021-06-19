@@ -66,7 +66,6 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-
                               SizedBox(
                                 height: 5,
                               ),
@@ -75,7 +74,6 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-
                             ],
                           ),
                         ),
@@ -117,7 +115,6 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-
                               SizedBox(
                                 height: 5,
                               ),
@@ -126,7 +123,6 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-
                             ],
                           ),
                         ),
@@ -143,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   StreamBuilder<QuerySnapshot>(
-                    stream: Globals.categoryRef!.snapshots(),
+                    stream: Globals.classRef!.snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       print(snapshot.data?.docs.length);
@@ -177,7 +173,6 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-
                               SizedBox(
                                 height: 5,
                               ),
@@ -186,7 +181,6 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-
                             ],
                           ),
                         ),
@@ -234,7 +228,6 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(
                                 height: 5,
                               ),
-
                               Text(
                                 'Subjects',
                                 style: TextStyle(

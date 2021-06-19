@@ -35,6 +35,7 @@ class _AddAUserState extends State<AddAUser> {
   String? _bio;
   String? _url;
   String? _thumbImage; //
+  String? _classValue; //
   String? _userTypeDropdownValue; //
   int? answerIndex;
   int? videoVersionAnswerIndex;
@@ -487,6 +488,110 @@ class _AddAUserState extends State<AddAUser> {
                               SizedBox(
                                 height: 20,
                               ),
+                              _userTypeDropdownValue == 'Student'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                10,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey.shade300,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                bottomLeft: Radius.circular(20),
+                                              ),
+                                            ),
+                                            child: Center(
+                                                child: Text(
+                                              'Class: ',
+                                              style: TextStyle(
+                                                  color: Colors.black87),
+                                            )),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2 -
+                                                200,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey,
+                                                    width: 1),
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(20),
+                                                  bottomRight:
+                                                      Radius.circular(20),
+                                                )),
+                                            child: StreamBuilder(
+                                              stream:
+                                                  Globals.classRef?.snapshots(),
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot<QuerySnapshot>
+                                                      snapshot) {
+                                                // print(
+                                                //     snapshot.data?.docs.length);
+                                                if (snapshot.hasError) {
+                                                  return Center(
+                                                    child: Text(
+                                                        'Something went wrong'),
+                                                  );
+                                                }
+                                                if (snapshot.connectionState ==
+                                                    ConnectionState.waiting) {
+                                                  return Center(
+                                                      child: Text("Loading"));
+                                                }
+
+                                                return DropdownButtonHideUnderline(
+                                                  child: DropdownButton(
+                                                    hint: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 5),
+                                                      child: Text(
+                                                          'Please Assign a Class'),
+                                                    ), // Not necessary for Option 1
+                                                    value: _classValue,
+                                                    onChanged: (newValue) {
+                                                      setState(() {
+                                                        _classValue =
+                                                            newValue.toString();
+                                                      });
+                                                    },
+                                                    items: snapshot.data!.docs
+                                                        .map((location) {
+                                                      print(location['class']);
+                                                      return DropdownMenuItem(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 5),
+                                                          child: new Text(
+                                                              location['class']
+                                                                  .toString()),
+                                                        ),
+                                                        value: location['class']
+                                                            .toString(),
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ])
+                                  : Container(),
+                              SizedBox(
+                                height: 20,
+                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -845,6 +950,7 @@ class _AddAUserState extends State<AddAUser> {
                                             'photoUrl': _thumbImage,
                                             'phoneNumber': "phoneNumber",
                                             'userType': _userTypeDropdownValue,
+                                            'class': _classValue ?? "N/A",
                                             'publicUrl': _url,
                                             "isAdmin": false,
                                             'createdAt':
@@ -869,6 +975,18 @@ class _AddAUserState extends State<AddAUser> {
 
                                         await app.delete();
                                         Future.sync(() => userCredential);
+                                        setState(() {
+                                          isLoading = false;
+                                          addFirstNameController?.clear();
+                                          addLastNameController?.clear();
+                                          addPasswordController?.clear();
+                                          addUserNameController?.clear();
+                                          addEmailController?.clear();
+                                          addBioController?.clear();
+                                          addPublicUrlController?.clear();
+                                          _thumbImage = null;
+                                          _userTypeDropdownValue = null;
+                                        });
                                       } on FirebaseAuthException catch (e) {
                                         if (e.code == 'weak-password') {
                                           print(
@@ -880,6 +998,9 @@ class _AddAUserState extends State<AddAUser> {
                                                   'The password provided is too weak.',
                                             ),
                                           );
+                                          setState(() {
+                                            isLoading = false;
+                                          });
                                         } else if (e.code ==
                                             'email-already-in-use') {
                                           print(
@@ -891,24 +1012,18 @@ class _AddAUserState extends State<AddAUser> {
                                                   'The account already exists for that email.',
                                             ),
                                           );
+                                          setState(() {
+                                            isLoading = false;
+                                          });
                                         }
                                       } catch (e) {
                                         print(e);
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+
                                       }
                                     }
-
-                                    setState(() {
-                                      isLoading = false;
-                                      addFirstNameController?.clear();
-                                      addLastNameController?.clear();
-                                      addPasswordController?.clear();
-                                      addUserNameController?.clear();
-                                      addEmailController?.clear();
-                                      addBioController?.clear();
-                                      addPublicUrlController?.clear();
-                                      _thumbImage = null;
-                                      _userTypeDropdownValue = null;
-                                    });
                                   }
                                 },
                                 child: Container(

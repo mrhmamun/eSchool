@@ -206,6 +206,7 @@ class _SignUpFormState extends State<SignUpForm> {
                               'bio': "bio",
                               'photoUrl': user?.photoURL,
                               'phoneNumber': "phoneNumber",
+                              'class': "classValue",
                               'userType': "Default",
                               'publicUrl': "url",
                               "isAdmin": false,
