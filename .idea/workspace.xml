@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cfb287da-4879-4f41-b70f-6e0d642f3306" name="Default Changelist" comment="add a user">
-      <change afterPath="$PROJECT_DIR$/lib/view/admin/subjects/edit_subject_details.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/view/admin/subjects/subjects.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/view/admin/user/edit_user_details.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/view/teacher/home/teacher_dashboard_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/view/teacher/home/teacher_home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQvd2Vi.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQvd2Vi.cache" afterDir="false" />
+    <list default="true" id="cfb287da-4879-4f41-b70f-6e0d642f3306" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/view/teacher/subjects/teacher_subjects_list.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/view/teacher/test/add_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/global/globals.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/global/globals.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/categoris/categories.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/admin/classes/classes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/home/dashboard_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/admin/home/dashboard_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/home/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/admin/home/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/home/login_page.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/view/login/login_form.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/login/login_form.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/signup/signup_form.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/signup/signup_form.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/subcategories/subcategories.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/subjects/subjects.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/test/add_test_question.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/test/add_test_question.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/user/add_a_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/admin/user/add_a_user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/user/all_users.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/admin/user/all_users.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/user/edit_user_details.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/login/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/login/login_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/teacher/home/teacher_dashboard_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/teacher/home/teacher_dashboard_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,13 +104,21 @@
       <option name="project" value="LOCAL" />
       <updated>1623686035288</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="teacher view added">
+      <created>1624100666908</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1624100666908</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
     <MESSAGE value="add a user" />
-    <option name="LAST_COMMIT_MESSAGE" value="add a user" />
+    <MESSAGE value="teacher view added" />
+    <option name="LAST_COMMIT_MESSAGE" value="teacher view added" />
   </component>
   <component name="WindowStateProjectService">
     <state x="302" y="133" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1623605741781">
@@ -134,16 +131,16 @@
     </state>
     <state x="100" y="123" width="1080" height="510" key="AVDManager/0.23.1280.713@0.23.1280.713" timestamp="1623743143702" />
     <state x="100" y="123" width="1080" height="512" key="AVDManager/0.23.1280.716@0.23.1280.716" timestamp="1623905624981" />
-    <state x="198" y="23" key="CommitChangelistDialog2" timestamp="1623686753671">
-      <screen x="0" y="23" width="1280" height="710" />
+    <state x="5" y="23" key="CommitChangelistDialog2" timestamp="1624100658649">
+      <screen x="0" y="23" width="1280" height="713" />
     </state>
     <state x="198" y="23" key="CommitChangelistDialog2/0.23.1280.710@0.23.1280.710" timestamp="1623686753671" />
-    <state x="198" y="23" key="CommitChangelistDialog2/0.23.1280.713@0.23.1280.713" timestamp="1623655775133" />
-    <state x="240" y="118" key="Vcs.Push.Dialog.v2" timestamp="1623686061754">
-      <screen x="0" y="23" width="1280" height="710" />
+    <state x="5" y="23" key="CommitChangelistDialog2/0.23.1280.713@0.23.1280.713" timestamp="1624100658649" />
+    <state x="240" y="118" key="Vcs.Push.Dialog.v2" timestamp="1624100694339">
+      <screen x="0" y="23" width="1280" height="713" />
     </state>
     <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.710@0.23.1280.710" timestamp="1623686061754" />
-    <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.713@0.23.1280.713" timestamp="1623655783498" />
+    <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.713@0.23.1280.713" timestamp="1624100694339" />
     <state x="100" y="123" width="1080" height="515" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1624023489940">
       <screen x="0" y="23" width="1280" height="715" />
     </state>

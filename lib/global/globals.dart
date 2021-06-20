@@ -17,8 +17,12 @@ class Globals {
   static final CollectionReference? subjectRef =
       FirebaseFirestore.instance.collection('subjects');
 
+  static final CollectionReference? testRef =
+      FirebaseFirestore.instance.collection('tests');
+
   static final CollectionReference? videoRef =
       FirebaseFirestore.instance.collection('videos');
+
   static final CollectionReference? otherRef =
       FirebaseFirestore.instance.collection('others');
 

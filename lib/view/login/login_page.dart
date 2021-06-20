@@ -21,10 +21,13 @@ class _LoginPageState extends State<LoginPage> {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       isLoggedIn = prefs.getBool("isLoggedIn")!;
+      var userType = prefs.getString('userType');
       print(isLoggedIn);
-      if (isLoggedIn == true) {
+      if (isLoggedIn == true && userType == 'Admin') {
         Navigator.pushNamed(context, "/dashboard");
-      }
+      } else if (isLoggedIn == true && userType == 'Teacher') {
+        Navigator.pushNamed(context, "/teacher-dashboard-page");
+      } else if (isLoggedIn == true && userType == 'Student') {}
     });
   }
 

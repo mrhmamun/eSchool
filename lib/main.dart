@@ -8,6 +8,7 @@ import 'package:eschool/view/signup/signup.dart';
 import 'package:eschool/view/teacher/home/teacher_dashboard_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
@@ -25,6 +26,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'eSchool',
+        localizationsDelegates: [
+          GlobalWidgetsLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [Locale('pt', 'BR')],
         initialRoute: '/',
         routes: {
           '/': (context) => LoginPage(),

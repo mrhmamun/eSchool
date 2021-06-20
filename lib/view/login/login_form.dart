@@ -37,7 +37,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final _usernameController = TextEditingController();
+  final _userNameController = TextEditingController();
 
   final _passwordController = TextEditingController();
   String? email;
@@ -67,7 +67,7 @@ class _LoginFormState extends State<LoginForm> {
                           fontFamily: 'Poppins',
                           color: Colors.white))),
               TextFormField(
-                  controller: _usernameController,
+                  controller: _userNameController,
                   onChanged: (value) {
                     setState(() {
                       email = value;
@@ -159,6 +159,7 @@ class _LoginFormState extends State<LoginForm> {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     var userType;
+                    var userName;
                     if (_formKey.currentState!.validate()) {
                       try {
                         UserCredential userCredential = await FirebaseAuth
@@ -177,6 +178,7 @@ class _LoginFormState extends State<LoginForm> {
                           print(value['userType']);
                           setState(() {
                             userType = value['userType'];
+                            userName = value['userName'];
                           });
 
                           if (userType == 'Admin') {
@@ -190,6 +192,7 @@ class _LoginFormState extends State<LoginForm> {
                             prefs.setBool('isLoggedIn', true);
                             prefs.setString('email', email.toString());
                             prefs.setString('userType', userType.toString());
+                            prefs.setString('userName', userName.toString());
                           } else if (userType == 'Teacher') {
                             ScaffoldMessenger.of(context).showSnackBar(
                               Globals.customSnackBar(
@@ -202,6 +205,7 @@ class _LoginFormState extends State<LoginForm> {
                             prefs.setBool('isLoggedIn', true);
                             prefs.setString('email', email.toString());
                             prefs.setString('userType', userType.toString());
+                            prefs.setString('userName', userName.toString());
                           } else if (userType == 'Student') {
                             ScaffoldMessenger.of(context).showSnackBar(
                               Globals.customSnackBar(
@@ -213,6 +217,7 @@ class _LoginFormState extends State<LoginForm> {
                             prefs.setBool('isLoggedIn', true);
                             prefs.setString('email', email.toString());
                             prefs.setString('userType', userType.toString());
+                            prefs.setString('userName', userName.toString());
                           }
                           // else {
                           //   print('Something Went wrong, please try again later');

@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eschool/global/globals.dart';
 import 'package:eschool/view/admin/classes/classes.dart';
 import 'package:eschool/view/admin/home/home_page.dart';
-import 'package:eschool/view/admin/subjects/subjects.dart';
-import 'package:eschool/view/admin/user/add_a_user.dart';
-import 'package:eschool/view/admin/user/all_users.dart';
 import 'package:eschool/view/login/login_page.dart';
+import 'package:eschool/view/teacher/subjects/teacher_subjects_list.dart';
+import 'package:eschool/view/teacher/test/add_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -318,15 +317,15 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                           label: Text('Subjects'),
                         ),
                         NavigationRailDestination(
-                          selectedIcon: Icon(Icons.person_add_alt_1_outlined),
-                          icon: Icon(Icons.person_add_alt_1),
-                          label: Text('Add a User'),
+                          selectedIcon: Icon(Icons.pending_actions),
+                          icon: Icon(Icons.pending_actions_outlined),
+                          label: Text('Add a Test'),
                         ),
-                        NavigationRailDestination(
-                          selectedIcon: Icon(Icons.account_circle_outlined),
-                          icon: Icon(Icons.account_circle),
-                          label: Text('All Users'),
-                        ),
+                        // NavigationRailDestination(
+                        //   selectedIcon: Icon(Icons.account_circle_outlined),
+                        //   icon: Icon(Icons.account_circle),
+                        //   label: Text('All Users'),
+                        // ),
                         // NavigationRailDestination(
                         //   selectedIcon: Icon(Icons.pending_actions),
                         //   icon: Icon(Icons.pending_actions_outlined),
@@ -351,14 +350,13 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
         return HomePage();
       case 1:
         return ClassPage();
-      // case 2:
-      //   return SubCategories();
+
       case 2:
-        return SubjectPage();
+        return TeacherSubjectsList();
       case 3:
-        return AddAUser();
-      case 4:
-        return AllUsers();
+        return AddTest();
+      // case 4:
+      //   return AllUsers();
       // case 5:
       //   return AddTestQuestion();
       default:
