@@ -1,23 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:eschool/global/globals.dart';
-import 'package:eschool/view/teacher/test/edit_test_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AddTest extends StatefulWidget {
+class EditTestDetails extends StatefulWidget {
+  var testName;
+  var className;
+  var subject;
+  var dateTime;
+  var results;
+
+  EditTestDetails(
+      {this.subject,
+      this.dateTime,
+      this.className,
+      this.testName,
+      this.results});
+
   @override
-  _AddTestState createState() => _AddTestState();
+  _EditTestDetailsState createState() => _EditTestDetailsState();
 }
 
-class _AddTestState extends State<AddTest> {
+class _EditTestDetailsState extends State<EditTestDetails> {
   GlobalKey<FormState> _oFormKey = GlobalKey<FormState>();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController _controller2;
-  late TextEditingController addTestNameController;
+  late TextEditingController editTestDetailsNameController;
   bool isLoading = false;
   String? testName;
   String? _class;
@@ -32,9 +44,14 @@ class _AddTestState extends State<AddTest> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    testName = widget.testName;
+    _class = widget.className;
+    _subejct = widget.subject;
+    _valueChanged2 = widget.dateTime;
     Intl.defaultLocale = 'US';
-    _controller2 = TextEditingController(text: DateTime.now().toString());
-    addTestNameController = TextEditingController();
+    _controller2 = TextEditingController(text: widget.dateTime.toString());
+    editTestDetailsNameController =
+        TextEditingController(text: widget.testName);
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       setState(() {
@@ -51,7 +68,7 @@ class _AddTestState extends State<AddTest> {
       setState(() {
         //_initialValue = '2000-10-22 14:30';
 
-        _controller2.text = '2001-10-21 15:31';
+        _controller2.text = widget.dateTime.toString();
       });
     });
   }
@@ -61,7 +78,7 @@ class _AddTestState extends State<AddTest> {
     // TODO: implement dispose
     super.dispose();
     _controller2.dispose();
-    addTestNameController.dispose();
+    editTestDetailsNameController.dispose();
   }
 
   @override
@@ -70,6 +87,9 @@ class _AddTestState extends State<AddTest> {
         inAsyncCall: isLoading,
         child: SafeArea(
           child: Scaffold(
+            appBar: AppBar(
+              title: Text('Edit Test Details'),
+            ),
             body: SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),
               child: Center(
@@ -123,7 +143,7 @@ class _AddTestState extends State<AddTest> {
                                     MediaQuery.of(context).size.width / 2 - 200,
                                 height: 50,
                                 child: TextFormField(
-                                  controller: addTestNameController,
+                                  controller: editTestDetailsNameController,
                                   showCursor: true,
                                   // initialValue: testName,
                                   decoration: InputDecoration(
@@ -397,59 +417,39 @@ class _AddTestState extends State<AddTest> {
                             height: 20,
                           ),
                           InkWell(
-                            onTap: () async {
+                            onTap: () {
                               setState(() {
                                 isLoading = true;
                               });
-
-                              print('Button Tapped');
-                              print(testName);
-                              if (testName == null ||
-                                  testName!.isEmpty ||
-                                  _class == null ||
-                                  _class!.isEmpty ||
-                                  _subejct == null ||
-                                  _subejct!.isEmpty ||
-                                  _valueChanged2 == null ||
-                                  testName!.isEmpty) {
+                              if (_subejct == null || _subejct!.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   Globals.customSnackBar(
                                     content:
-                                        'Please Enter All Fields Properly!',
+                                        'Please enter all fields properly!',
                                   ),
                                 );
-                              } else if (testName != null &&
-                                  _class != null &&
-                                  _subejct != null &&
-                                  _valueChanged2 != null) {
-                                Globals.testRef?.doc(testName).set({
-                                  'teacherUid': Globals.auth.currentUser!.uid,
-                                  "testName": testName,
-                                  "class": _class,
-                                  'subject': _subejct,
-                                  'dateTime':
-                                      _controller2.text ?? _valueChanged2,
-                                  'results': [],
-                                }).then((value) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    Globals.customSnackBar(
-                                      content: 'Test Added Successfully!',
-                                    ),
-                                  );
-
-                                  setState(() {
-                                    addTestNameController.clear();
-                                    _class = null;
-                                    _subejct = null;
-                                    _valueChanged2 = '';
+                              } else {
+                                Globals.testRef
+                                    ?.doc(widget.testName)
+                                    .delete()
+                                    .then((value) {
+                                  Globals.testRef?.doc(testName).set({
+                                    'teacherUid': Globals.auth.currentUser!.uid,
+                                    "testName": testName ?? widget.testName,
+                                    "class": _class ?? widget.className,
+                                    'subject': _subejct ?? widget.subject,
+                                    'dateTime':  _valueChanged2 ?? widget.dateTime,
+                                    'results': widget.results,
+                                  }).then((value) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      Globals.customSnackBar(
+                                        content:
+                                            'Test Details Edited Successfully!',
+                                      ),
+                                    );
+                                    Navigator.pop(context);
                                   });
                                 });
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  Globals.customSnackBar(
-                                    content: 'Something Went Wrong!',
-                                  ),
-                                );
                               }
 
                               setState(() {
@@ -464,7 +464,7 @@ class _AddTestState extends State<AddTest> {
                                   borderRadius: BorderRadius.circular(20)),
                               child: Center(
                                   child: Text(
-                                'Add',
+                                'Save',
                                 style: TextStyle(color: Colors.white),
                               )),
                             ),
@@ -474,184 +474,6 @@ class _AddTestState extends State<AddTest> {
                     ),
                     SizedBox(
                       height: 20,
-                    ),
-                    Card(
-                      elevation: 10,
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: StreamBuilder<QuerySnapshot>(
-                          stream: Globals.testRef
-                              ?.where('teacherUid',
-                                  isEqualTo: Globals.auth.currentUser!.uid)
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            print(snapshot.data?.docs.length);
-                            if (snapshot.hasError) {
-                              return Center(
-                                  child: Text('Something went wrong'));
-                            }
-
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Text("Loading");
-                            }
-
-                            return new ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                var item = snapshot.data!.docs[index];
-                                var _testName =
-                                    snapshot.data!.docs[index]['testName'];
-
-                                var dateTime =
-                                    snapshot.data!.docs[index]['dateTime'];
-                                var className =
-                                    snapshot.data!.docs[index]['class'];
-                                var subject =
-                                    snapshot.data!.docs[index]['subject'];
-                                var results =
-                                    snapshot.data!.docs[index]['results'];
-                                var newIndex = index + 1;
-                                return Padding(
-                                  padding: EdgeInsets.all(5),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        height: 50,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                    2 -
-                                                180,
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              "   " +
-                                                  newIndex.toString() +
-                                                  ".  ",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              snapshot.data!.docs[index]
-                                                  ['testName'],
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          InkWell(
-                                            onTap: () async {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          EditTestDetails(
-                                                              testName:
-                                                                  _testName,
-                                                              className:
-                                                                  className,
-                                                              subject: subject,
-                                                              dateTime:
-                                                                  dateTime,
-                                                              results:
-                                                                  results)));
-                                            },
-                                            child: Container(
-                                              // width: 100,
-                                              height: 50,
-                                              padding: EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.indigo,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-
-                                              child: Center(
-                                                  child: Icon(
-                                                Icons.edit,
-                                                color: Colors.white,
-                                              )),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                isLoading = true;
-                                              });
-
-                                              Globals.testRef
-                                                  ?.doc(snapshot.data!
-                                                      .docs[index]['testName'])
-                                                  .delete()
-                                                  .then((value) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  Globals.customSnackBar(
-                                                    content:
-                                                        'Test Removed Successfully!',
-                                                  ),
-                                                );
-                                              });
-
-                                              setState(() {
-                                                isLoading = false;
-                                              });
-                                            },
-                                            child: Container(
-                                              // width: 100,
-                                              height: 50,
-                                              padding: EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.indigo,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-                                              child: Center(
-                                                  child: Icon(
-                                                Icons.delete,
-                                                color: Colors.white,
-                                              )),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-
-                              // children: snapshot.data!.docs
-                              //     .map((DocumentSnapshot document) {
-                              //   return new ListTile(
-                              //     title: new Text(document.data()?['Class']),
-                              //     // subtitle: new Text(document.data()?['subject']),
-                              //   );
-                              // }).toList(),
-                            );
-                          },
-                        ),
-                      ),
                     ),
                   ],
                 ),

@@ -6,6 +6,7 @@ import 'package:eschool/view/admin/user/edit_user_details.dart';
 import 'package:eschool/view/login/login_page.dart';
 import 'package:eschool/view/signup/signup.dart';
 import 'package:eschool/view/teacher/home/teacher_dashboard_page.dart';
+import 'package:eschool/view/teacher/test/edit_test_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/edituserdetails': (context) => EditUserDetails(),
           '/edit-subject-details': (context) => EditSubjectDetails(),
           '/teacher-dashboard-page': (context) => TeacherDashboardPage(),
+          '/edit-test-details': (context) => EditTestDetails(),
         });
   }
 }
