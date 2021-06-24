@@ -27,7 +27,9 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushNamed(context, "/dashboard");
       } else if (isLoggedIn == true && userType == 'Teacher') {
         Navigator.pushNamed(context, "/teacher-dashboard-page");
-      } else if (isLoggedIn == true && userType == 'Student') {}
+      } else if (isLoggedIn == true && userType == 'Student') {
+        Navigator.pushNamed(context, "/student-dashboard");
+      }
     });
   }
 

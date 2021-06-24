@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:eschool/global/globals.dart';
 import 'package:eschool/view/teacher/test/edit_test_details.dart';
+import 'package:eschool/view/teacher/test/result_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -519,124 +520,146 @@ class _AddTestState extends State<AddTest> {
                                     snapshot.data!.docs[index]['subject'];
                                 var results =
                                     snapshot.data!.docs[index]['results'];
+                                print("results");
+                                print(results);
                                 var newIndex = index + 1;
-                                return Padding(
-                                  padding: EdgeInsets.all(5),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        height: 50,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                    2 -
-                                                180,
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        child: Row(
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ResultDetails(
+                                                testName: _testName,
+                                                className: className,
+                                                subject: subject,
+                                                dateTime: dateTime,
+                                                results: results)));
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          height: 50,
+                                          width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2 -
+                                              180,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "   " +
+                                                    newIndex.toString() +
+                                                    ".  ",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text(
+                                                _testName +
+                                                    " || " +
+                                                    subject +
+                                                    " || " +
+                                                    className,
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
                                           children: [
-                                            Text(
-                                              "   " +
-                                                  newIndex.toString() +
-                                                  ".  ",
-                                              style: TextStyle(
+                                            InkWell(
+                                              onTap: () async {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            EditTestDetails(
+                                                                testName:
+                                                                    _testName,
+                                                                className:
+                                                                    className,
+                                                                subject:
+                                                                    subject,
+                                                                dateTime:
+                                                                    dateTime,
+                                                                results:
+                                                                    results)));
+                                              },
+                                              child: Container(
+                                                // width: 100,
+                                                height: 50,
+                                                padding: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.indigo,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20)),
+
+                                                child: Center(
+                                                    child: Icon(
+                                                  Icons.edit,
                                                   color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
+                                                )),
+                                              ),
                                             ),
-                                            Text(
-                                              snapshot.data!.docs[index]
-                                                  ['testName'],
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  isLoading = true;
+                                                });
+
+                                                Globals.testRef
+                                                    ?.doc(snapshot
+                                                            .data!.docs[index]
+                                                        ['testName'])
+                                                    .delete()
+                                                    .then((value) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    Globals.customSnackBar(
+                                                      content:
+                                                          'Test Removed Successfully!',
+                                                    ),
+                                                  );
+                                                });
+
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                              },
+                                              child: Container(
+                                                // width: 100,
+                                                height: 50,
+                                                padding: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.indigo,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20)),
+                                                child: Center(
+                                                    child: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.white,
+                                                )),
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          InkWell(
-                                            onTap: () async {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          EditTestDetails(
-                                                              testName:
-                                                                  _testName,
-                                                              className:
-                                                                  className,
-                                                              subject: subject,
-                                                              dateTime:
-                                                                  dateTime,
-                                                              results:
-                                                                  results)));
-                                            },
-                                            child: Container(
-                                              // width: 100,
-                                              height: 50,
-                                              padding: EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.indigo,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-
-                                              child: Center(
-                                                  child: Icon(
-                                                Icons.edit,
-                                                color: Colors.white,
-                                              )),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                isLoading = true;
-                                              });
-
-                                              Globals.testRef
-                                                  ?.doc(snapshot.data!
-                                                      .docs[index]['testName'])
-                                                  .delete()
-                                                  .then((value) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  Globals.customSnackBar(
-                                                    content:
-                                                        'Test Removed Successfully!',
-                                                  ),
-                                                );
-                                              });
-
-                                              setState(() {
-                                                isLoading = false;
-                                              });
-                                            },
-                                            child: Container(
-                                              // width: 100,
-                                              height: 50,
-                                              padding: EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.indigo,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-                                              child: Center(
-                                                  child: Icon(
-                                                Icons.delete,
-                                                color: Colors.white,
-                                              )),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 );
                               },

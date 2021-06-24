@@ -173,7 +173,7 @@ class _LoginFormState extends State<LoginForm> {
                         Globals.userRef
                             .doc(Globals.auth.currentUser!.uid)
                             .get()
-                            .then((value) {
+                            .then((value) async {
                           print("value['userType']");
                           print(value['userType']);
                           setState(() {
@@ -189,10 +189,12 @@ class _LoginFormState extends State<LoginForm> {
                             );
                             Navigator.pushNamed(context, '/dashboard',
                                 arguments: {});
-                            prefs.setBool('isLoggedIn', true);
-                            prefs.setString('email', email.toString());
-                            prefs.setString('userType', userType.toString());
-                            prefs.setString('userName', userName.toString());
+                            await prefs.setBool('isLoggedIn', true);
+                            await prefs.setString('email', email.toString());
+                            await prefs.setString(
+                                'userType', userType.toString());
+                            await prefs.setString(
+                                'userName', userName.toString());
                           } else if (userType == 'Teacher') {
                             ScaffoldMessenger.of(context).showSnackBar(
                               Globals.customSnackBar(
@@ -202,10 +204,12 @@ class _LoginFormState extends State<LoginForm> {
                             Navigator.pushNamed(
                                 context, '/teacher-dashboard-page',
                                 arguments: {});
-                            prefs.setBool('isLoggedIn', true);
-                            prefs.setString('email', email.toString());
-                            prefs.setString('userType', userType.toString());
-                            prefs.setString('userName', userName.toString());
+                            await prefs.setBool('isLoggedIn', true);
+                            await prefs.setString('email', email.toString());
+                            await prefs.setString(
+                                'userType', userType.toString());
+                            await prefs.setString(
+                                'userName', userName.toString());
                           } else if (userType == 'Student') {
                             ScaffoldMessenger.of(context).showSnackBar(
                               Globals.customSnackBar(
@@ -214,10 +218,12 @@ class _LoginFormState extends State<LoginForm> {
                             );
                             Navigator.pushNamed(context, '/dashboard',
                                 arguments: {});
-                            prefs.setBool('isLoggedIn', true);
-                            prefs.setString('email', email.toString());
-                            prefs.setString('userType', userType.toString());
-                            prefs.setString('userName', userName.toString());
+                            await prefs.setBool('isLoggedIn', true);
+                            await prefs.setString('email', email.toString());
+                            await prefs.setString(
+                                'userType', userType.toString());
+                            await prefs.setString(
+                                'userName', userName.toString());
                           }
                           // else {
                           //   print('Something Went wrong, please try again later');

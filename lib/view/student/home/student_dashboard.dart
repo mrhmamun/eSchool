@@ -10,12 +10,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TeacherDashboardPage extends StatefulWidget {
+class StudentDashboard extends StatefulWidget {
   @override
-  _TeacherDashboardPageState createState() => _TeacherDashboardPageState();
+  _StudentDashboardState createState() => _StudentDashboardState();
 }
 
-class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
+class _StudentDashboardState extends State<StudentDashboard> {
   int index = 0;
   bool isExtended = false;
 
@@ -43,7 +43,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                child: Text('eSchool || Teacher View'),
+                child: Text('eSchool || Student View'),
               ),
             ],
           ),
@@ -266,7 +266,6 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                                 var isLoggedin =
                                     prefs.setBool("isLoggedin", false);
                                 prefs.clear();
-                                Globals.googleSignIn.signOut();
                                 FirebaseAuth.instance.signOut();
                                 Navigator.push(
                                     context,

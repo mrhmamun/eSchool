@@ -917,13 +917,13 @@ class _AddAUserState extends State<AddAUser> {
                                         aes.decryptToUtf8(hashedPassword);
                                     print(decoded);
 
+                                    FirebaseApp app;
+
                                     if (_formKey.currentState!.validate()) {
                                       try {
-                                        FirebaseApp app =
-                                            await Firebase.initializeApp(
-                                                name: 'Secondary',
-                                                options:
-                                                    Firebase.app().options);
+                                        app = await Firebase.initializeApp(
+                                            name: 'Secondary',
+                                            options: Firebase.app().options);
 
                                         UserCredential userCredential =
                                             await FirebaseAuth.instanceFor(
@@ -973,8 +973,6 @@ class _AddAUserState extends State<AddAUser> {
                                           ),
                                         );
 
-                                        await app.delete();
-                                        Future.sync(() => userCredential);
                                         setState(() {
                                           isLoading = false;
                                           addFirstNameController?.clear();
@@ -987,6 +985,8 @@ class _AddAUserState extends State<AddAUser> {
                                           _thumbImage = null;
                                           _userTypeDropdownValue = null;
                                         });
+                                        await app.delete();
+                                        Future.sync(() => userCredential);
                                       } on FirebaseAuthException catch (e) {
                                         if (e.code == 'weak-password') {
                                           print(
@@ -1018,10 +1018,13 @@ class _AddAUserState extends State<AddAUser> {
                                         }
                                       } catch (e) {
                                         print(e);
+                                        print(
+                                            'TODO check if https://github.com/FirebaseExtended/flutterfire/issues/3277 is fixed');
+                                        app = Firebase.app('Secondary');
+                                        await app.delete();
                                         setState(() {
                                           isLoading = false;
                                         });
-
                                       }
                                     }
                                   }
