@@ -22,6 +22,7 @@
       <root url="file://$PROJECT_DIR$/../../flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-1.2.0" />
       <root url="file://$PROJECT_DIR$/../../flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-1.0.7" />
       <root url="file://$PROJECT_DIR$/../../flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-1.0.7" />
+      <root url="file://$PROJECT_DIR$/../../flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

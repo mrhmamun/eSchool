@@ -52,6 +52,12 @@ dependencies:
   date_time_picker: ^2.0.0
   intl: ^0.17.0
   easy_localization: ^3.0.0
+  dotted_border: ^2.0.0
+  cached_network_image: ^3.0.0
+  font_awesome_flutter: ^9.1.0
+#  pdf: ^3.4.2
+#  universal_html: ^2.0.8
+#  path_provider: ^2.0.2
 #  image_picker: ^0.7.5+2
 
 
@@ -76,6 +82,14 @@ flutter:
     - assets/images/icons/
     - assets/images/icons/google_signin_button.png
 
+  fonts:
+    - family: Arial
+      fonts:
+        - asset: assets/fonts/arial.ttf
+        - asset: assets/fonts/arialbd.ttf
+          weight: 700
+        - asset: assets/fonts/ariali.ttf
+          style: italic
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

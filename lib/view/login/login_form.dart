@@ -160,6 +160,7 @@ class _LoginFormState extends State<LoginForm> {
                         await SharedPreferences.getInstance();
                     var userType;
                     var userName;
+                    var className;
                     if (_formKey.currentState!.validate()) {
                       try {
                         UserCredential userCredential = await FirebaseAuth
@@ -179,6 +180,7 @@ class _LoginFormState extends State<LoginForm> {
                           setState(() {
                             userType = value['userType'];
                             userName = value['userName'];
+                            className = value['class'];
                           });
 
                           if (userType == 'Admin') {
@@ -216,7 +218,7 @@ class _LoginFormState extends State<LoginForm> {
                                 content: 'User $email LoggedIn Successful',
                               ),
                             );
-                            Navigator.pushNamed(context, '/dashboard',
+                            Navigator.pushNamed(context, '/student-dashboard',
                                 arguments: {});
                             await prefs.setBool('isLoggedIn', true);
                             await prefs.setString('email', email.toString());
@@ -224,6 +226,8 @@ class _LoginFormState extends State<LoginForm> {
                                 'userType', userType.toString());
                             await prefs.setString(
                                 'userName', userName.toString());
+                            await prefs.setString(
+                                'class', className.toString());
                           }
                           // else {
                           //   print('Something Went wrong, please try again later');

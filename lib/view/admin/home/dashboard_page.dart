@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eschool/global/globals.dart';
+import 'package:eschool/view/admin/chat/admin_chat.dart';
 import 'package:eschool/view/admin/classes/classes.dart';
 import 'package:eschool/view/admin/home/home_page.dart';
 import 'package:eschool/view/admin/subjects/subjects.dart';
@@ -376,6 +377,11 @@ class _DashboardPageState extends State<DashboardPage> {
                           icon: Icon(Icons.account_circle),
                           label: Text('All Users'),
                         ),
+                        NavigationRailDestination(
+                          selectedIcon: Icon(Icons.chat),
+                          icon: Icon(Icons.chat),
+                          label: Text('Chat'),
+                        ),
                         // NavigationRailDestination(
                         //   selectedIcon: Icon(Icons.pending_actions),
                         //   icon: Icon(Icons.pending_actions_outlined),
@@ -408,8 +414,8 @@ class _DashboardPageState extends State<DashboardPage> {
         return AddAUser();
       case 4:
         return AllUsers();
-      // case 5:
-      //   return AddTestQuestion();
+      case 5:
+        return AdminChat();
       default:
         return HomePage();
     }

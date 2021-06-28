@@ -31,6 +31,9 @@ class Globals {
   static final CollectionReference? QuestionRef =
       FirebaseFirestore.instance.collection('questions');
 
+  static final CollectionReference? chatRef =
+      FirebaseFirestore.instance.collection('chat');
+
   static Future<DocumentSnapshot> getUid() async {
     await Future.delayed(Duration(seconds: 3));
     var firebaseUser = await FirebaseAuth.instance.currentUser;

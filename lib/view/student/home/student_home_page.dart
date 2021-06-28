@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TeacherHomePage extends StatefulWidget {
+class StudentHomePage extends StatefulWidget {
   @override
-  _TeacherHomePageState createState() => _TeacherHomePageState();
+  _StudentHomePageState createState() => _StudentHomePageState();
 }
 
-class _TeacherHomePageState extends State<TeacherHomePage> {
+class _StudentHomePageState extends State<StudentHomePage> {
   var userName;
 
   @override
@@ -40,57 +40,6 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  StreamBuilder<QuerySnapshot>(
-                    stream: Globals.userRef
-                        .where('userType', isEqualTo: 'Student')!
-                        .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      print(snapshot.data?.docs.length);
-                      if (snapshot.hasError) {
-                        return Center(child: Text('Something went wrong'));
-                      }
-
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-
-                      var length = snapshot.data!.docs.length.toString();
-
-                      return Card(
-                        elevation: 10,
-                        clipBehavior: Clip.antiAlias,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          width: MediaQuery.of(context).size.width / 4,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                length,
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'Students',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
                   StreamBuilder<QuerySnapshot>(
                     stream: Globals.subjectRef!
                         .where('teacher', isEqualTo: userName.toString())
@@ -142,25 +91,15 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
                       );
                     },
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
                   StreamBuilder<QuerySnapshot>(
-                    stream: Globals.testRef!
-                        .where('teacherUid',
-                            isEqualTo: Globals.auth.currentUser!.uid.toString())
+                    stream: Globals.userRef
+                        .where('userType', isEqualTo: 'Student')!
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       print(snapshot.data?.docs.length);
                       if (snapshot.hasError) {
-                        return Text('Something went wrong');
+                        return Center(child: Text('Something went wrong'));
                       }
 
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -203,59 +142,10 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
                       );
                     },
                   ),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: Globals.testRef!
-                        .where('teacherUid',
-                            isEqualTo: Globals.auth.currentUser!.uid.toString())
-                        .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      print(snapshot.data?.docs.length);
-                      if (snapshot.hasError) {
-                        return Text('Something went wrong');
-                      }
-
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-
-                      var length = snapshot.data!.docs.length.toString();
-
-                      return Card(
-                        elevation: 10,
-                        clipBehavior: Clip.antiAlias,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          width: MediaQuery.of(context).size.width / 4,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                length,
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'Classes',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
                 ],
+              ),
+              SizedBox(
+                height: 10,
               ),
             ],
           ),

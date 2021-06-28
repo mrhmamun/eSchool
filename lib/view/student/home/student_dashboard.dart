@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eschool/global/globals.dart';
-import 'package:eschool/view/admin/home/home_page.dart';
 import 'package:eschool/view/login/login_page.dart';
-import 'package:eschool/view/teacher/home/teacher_home_page.dart';
-import 'package:eschool/view/teacher/subjects/teacher_subjects_list.dart';
-import 'package:eschool/view/teacher/test/add_test.dart';
+import 'package:eschool/view/student/home/student_home_page.dart';
+import 'package:eschool/view/student/home/student_subjects_list.dart';
+import 'package:eschool/view/student/home/student_test_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -318,7 +317,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                         NavigationRailDestination(
                           selectedIcon: Icon(Icons.pending_actions),
                           icon: Icon(Icons.pending_actions_outlined),
-                          label: Text('Add a Test'),
+                          label: Text('Test Details'),
                         ),
                         // NavigationRailDestination(
                         //   selectedIcon: Icon(Icons.account_circle_outlined),
@@ -346,20 +345,20 @@ class _StudentDashboardState extends State<StudentDashboard> {
   Widget buildPages() {
     switch (index) {
       case 0:
-        return TeacherHomePage();
+        return StudentHomePage();
       // case 1:
       //   return ClassPage();
 
       case 1:
-        return TeacherSubjectsList();
+        return StudentSubjectsList();
       case 2:
-        return AddTest();
+        return StudentTestDetails();
       // case 4:
       //   return AllUsers();
       // case 5:
       //   return AddTestQuestion();
       default:
-        return HomePage();
+        return StudentHomePage();
     }
   }
 }

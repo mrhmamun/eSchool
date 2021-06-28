@@ -32,7 +32,9 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   StreamBuilder<QuerySnapshot>(
-                    stream: Globals.userRef.snapshots(),
+                    stream: Globals.userRef
+                        .where('userType', isEqualTo: 'Admin')
+                        .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       print(snapshot.data?.docs.length);
@@ -70,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                                 height: 5,
                               ),
                               Text(
-                                'Users',
+                                'Admin',
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
@@ -81,7 +83,9 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   StreamBuilder<QuerySnapshot>(
-                    stream: Globals.videoRef!.snapshots(),
+                    stream: Globals.userRef
+                        .where('userType', isEqualTo: 'Teacher')
+                        .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       print(snapshot.data?.docs.length);
@@ -139,7 +143,9 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   StreamBuilder<QuerySnapshot>(
-                    stream: Globals.classRef!.snapshots(),
+                    stream: Globals.userRef
+                        .where('userType', isEqualTo: 'Student')
+                        .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       print(snapshot.data?.docs.length);
@@ -188,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   StreamBuilder<QuerySnapshot>(
-                    stream: Globals.otherRef!.snapshots(),
+                    stream: Globals.subjectRef!.snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       print(snapshot.data?.docs.length);
@@ -205,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                       var length = snapshot.data!.docs.length.toString();
 
                       var data = snapshot.data!.docs;
-                      var downloads = data[0]['downloads'];
+                      // var downloads = data[0]['downloads'];
 
                       return Card(
                         elevation: 10,
@@ -221,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                downloads.toString(),
+                                data.length.toString(),
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
@@ -241,114 +247,116 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   children: [
-              //     StreamBuilder<QuerySnapshot>(
-              //       stream: Globals.subjectRef!.snapshots(),
-              //       builder: (BuildContext context,
-              //           AsyncSnapshot<QuerySnapshot> snapshot) {
-              //         print(snapshot.data?.docs.length);
-              //         if (snapshot.hasError) {
-              //           return Text('Something went wrong');
-              //         }
-              //
-              //         if (snapshot.connectionState == ConnectionState.waiting) {
-              //           return Center(
-              //             child: CircularProgressIndicator(),
-              //           );
-              //         }
-              //
-              //         var length = snapshot.data!.docs.length.toString();
-              //
-              //         return Card(
-              //           elevation: 10,
-              //           clipBehavior: Clip.antiAlias,
-              //           shape: RoundedRectangleBorder(
-              //             borderRadius: BorderRadius.circular(20),
-              //           ),
-              //           child: Container(
-              //             padding: EdgeInsets.all(10),
-              //             width: MediaQuery.of(context).size.width / 4,
-              //             child: Column(
-              //               mainAxisAlignment: MainAxisAlignment.center,
-              //               crossAxisAlignment: CrossAxisAlignment.center,
-              //               children: [
-              //                 Text(
-              //                   'Subjects',
-              //                   style: TextStyle(
-              //                       fontSize: 20, fontWeight: FontWeight.bold),
-              //                 ),
-              //                 SizedBox(
-              //                   height: 5,
-              //                 ),
-              //                 Text(
-              //                   length,
-              //                   style: TextStyle(fontSize: 20),
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         );
-              //       },
-              //     ),
-              //     StreamBuilder<QuerySnapshot>(
-              //       stream: Globals.videoRef!.snapshots(),
-              //       builder: (BuildContext context,
-              //           AsyncSnapshot<QuerySnapshot> snapshot) {
-              //         print("Why it's printing 0");
-              //         print(snapshot.data?.docs.length);
-              //         if (snapshot.hasError) {
-              //           return Text('Something went wrong');
-              //         }
-              //
-              //         if (snapshot.connectionState == ConnectionState.waiting) {
-              //           return Center(
-              //             child: CircularProgressIndicator(),
-              //           );
-              //         }
-              //
-              //         var length = snapshot.data!.docs.length.toString();
-              //
-              //         return Card(
-              //           elevation: 10,
-              //           clipBehavior: Clip.antiAlias,
-              //           shape: RoundedRectangleBorder(
-              //             borderRadius: BorderRadius.circular(20),
-              //           ),
-              //           child: Container(
-              //             padding: EdgeInsets.all(10),
-              //             width: MediaQuery.of(context).size.width / 4,
-              //             child: Column(
-              //               mainAxisAlignment: MainAxisAlignment.center,
-              //               crossAxisAlignment: CrossAxisAlignment.center,
-              //               children: [
-              //                 Text(
-              //                   'Videos',
-              //                   style: TextStyle(
-              //                       fontSize: 20, fontWeight: FontWeight.bold),
-              //                 ),
-              //                 SizedBox(
-              //                   height: 5,
-              //                 ),
-              //                 Text(
-              //                   length,
-              //                   style: TextStyle(
-              //                     fontSize: 20,
-              //                   ),
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         );
-              //       },
-              //     ),
-              //   ],
-              // ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  StreamBuilder<QuerySnapshot>(
+                    stream: Globals.classRef!.snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      print(snapshot.data?.docs.length);
+                      if (snapshot.hasError) {
+                        return Text('Something went wrong');
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      var length = snapshot.data!.docs.length.toString();
+
+                      return Card(
+                        elevation: 10,
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width / 4,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                length,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Classes',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: Globals.testRef!.snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      print(snapshot.data?.docs.length);
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Something went wrong'));
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      var length = snapshot.data!.docs.length.toString();
+
+                      var data = snapshot.data!.docs;
+                      // var downloads = data[0]['downloads'];
+
+                      return Card(
+                        elevation: 10,
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width / 4,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                data.length.toString(),
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Tests',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),

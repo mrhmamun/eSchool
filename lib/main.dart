@@ -1,3 +1,4 @@
+import 'package:eschool/view/admin/chat/admin_chat.dart';
 import 'package:eschool/view/admin/home/dashboard_page.dart';
 import 'package:eschool/view/admin/subjects/edit_subject_details.dart';
 import 'package:eschool/view/admin/user/add_a_user.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           '/edit-test-details': (context) => EditTestDetails(),
           '/result-details': (context) => ResultDetails(),
           '/student-dashboard': (context) => StudentDashboard(),
+          '/admin-chat': (context) => AdminChat(),
         });
   }
 }
