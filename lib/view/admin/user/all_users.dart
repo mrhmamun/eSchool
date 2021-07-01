@@ -411,7 +411,7 @@ class _AllUsersState extends State<AllUsers> {
                                               });
 
                                               Globals.userRef
-                                                  ?.get()
+                                                  .get()
                                                   .then((value) async {
                                                 if (item.exists) {
                                                   item.reference.delete();

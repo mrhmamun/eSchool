@@ -249,7 +249,7 @@ class _EditSubjectDetailsState extends State<EditSubjectDetails> {
                                       )),
                                   child: StreamBuilder(
                                     stream: Globals.userRef
-                                        ?.where('userType',
+                                        .where('userType',
                                             isEqualTo: 'Teacher')
                                         .snapshots(),
                                     builder: (BuildContext context,

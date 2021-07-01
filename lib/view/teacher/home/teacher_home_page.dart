@@ -42,7 +42,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
                 children: [
                   StreamBuilder<QuerySnapshot>(
                     stream: Globals.userRef
-                        .where('userType', isEqualTo: 'Student')!
+                        .where('userType', isEqualTo: 'Student')
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {

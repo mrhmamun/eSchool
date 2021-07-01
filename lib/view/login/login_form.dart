@@ -161,6 +161,7 @@ class _LoginFormState extends State<LoginForm> {
                     var userType;
                     var userName;
                     var className;
+                    var photoUrl;
                     if (_formKey.currentState!.validate()) {
                       try {
                         UserCredential userCredential = await FirebaseAuth
@@ -181,6 +182,7 @@ class _LoginFormState extends State<LoginForm> {
                             userType = value['userType'];
                             userName = value['userName'];
                             className = value['class'];
+                            photoUrl = value['class'];
                           });
 
                           if (userType == 'Admin') {

@@ -439,7 +439,7 @@ class _EditTestDetailsState extends State<EditTestDetails> {
                                     "class": _class ?? widget.className,
                                     'subject': _subejct ?? widget.subject,
                                     'dateTime':
-                                        _valueChanged2 ?? widget.dateTime,
+                                        _valueChanged2,
                                     'results': widget.results,
                                   }).then((value) {
                                     ScaffoldMessenger.of(context).showSnackBar(

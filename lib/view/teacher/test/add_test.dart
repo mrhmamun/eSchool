@@ -429,7 +429,7 @@ class _AddTestState extends State<AddTest> {
                                   "class": _class,
                                   'subject': _subejct,
                                   'dateTime':
-                                      _controller2.text ?? _valueChanged2,
+                                      _controller2.text,
                                   'results': [],
                                 }).then((value) {
                                   ScaffoldMessenger.of(context).showSnackBar(

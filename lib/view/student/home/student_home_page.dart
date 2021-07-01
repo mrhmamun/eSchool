@@ -11,6 +11,7 @@ class StudentHomePage extends StatefulWidget {
 
 class _StudentHomePageState extends State<StudentHomePage> {
   var userName;
+  var className;
 
   @override
   void initState() {
@@ -22,6 +23,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       setState(() {
         userName = prefs.getString('userName');
+        className = prefs.getString('class');
       });
     });
   }
@@ -42,7 +44,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                 children: [
                   StreamBuilder<QuerySnapshot>(
                     stream: Globals.subjectRef!
-                        .where('teacher', isEqualTo: userName.toString())
+                        .where('class', isEqualTo: className.toString())
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -93,7 +95,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                   ),
                   StreamBuilder<QuerySnapshot>(
                     stream: Globals.userRef
-                        .where('userType', isEqualTo: 'Student')!
+                        .where('userType', isEqualTo: 'Student')
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {

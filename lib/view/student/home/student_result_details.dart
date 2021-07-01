@@ -240,6 +240,9 @@ class _StudentResultDetailsState extends State<StudentResultDetails> {
                                             isEqualTo: widget.subject)
                                         .where('testName',
                                             isEqualTo: widget.testName)
+                                        .where('studentUid',
+                                            isEqualTo:
+                                                Globals.auth.currentUser!.uid)
                                         .snapshots(),
                                     builder: (BuildContext context,
                                         AsyncSnapshot<QuerySnapshot> snapshot) {
