@@ -12,7 +12,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<ScaffoldState> scafoldKey = GlobalKey();
 
-  bool isLoggedIn = false;
+  bool? isLoggedIn = false;
 
   @override
   void initState() {
@@ -20,8 +20,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      isLoggedIn = prefs.getBool("isLoggedIn")!;
-      var userType = prefs.getString('userType');
+      isLoggedIn = prefs.getBool("isLoggedIn");
+      String? userType = prefs.getString('userType');
       print(isLoggedIn);
       if (isLoggedIn == true && userType == 'Admin') {
         Navigator.pushNamed(context, "/dashboard");

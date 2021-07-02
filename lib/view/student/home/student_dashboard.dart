@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:eschool/view/admin/chat/admin_chat.dart';
 
 class StudentDashboard extends StatefulWidget {
   @override
@@ -319,6 +320,11 @@ class _StudentDashboardState extends State<StudentDashboard> {
                           icon: Icon(Icons.pending_actions_outlined),
                           label: Text('Test Details'),
                         ),
+                        NavigationRailDestination(
+                          selectedIcon: Icon(Icons.chat),
+                          icon: Icon(Icons.chat),
+                          label: Text('Chat'),
+                        ),
                         // NavigationRailDestination(
                         //   selectedIcon: Icon(Icons.account_circle_outlined),
                         //   icon: Icon(Icons.account_circle),
@@ -353,6 +359,8 @@ class _StudentDashboardState extends State<StudentDashboard> {
         return StudentSubjectsList();
       case 2:
         return StudentTestDetails();
+      case 3:
+        return AdminChat();
       // case 4:
       //   return AllUsers();
       // case 5:
