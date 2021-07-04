@@ -534,9 +534,11 @@ class ListViewHome extends State<AdminChat> {
     chatController = TextEditingController();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       Globals.userRef.doc(Globals.auth.currentUser!.uid).get().then((value) {
-        setState(() {
-          _displayName = value['displayName'];
-        });
+        if (mounted) {
+          setState(() {
+            _displayName = value['displayName'];
+          });
+        }
       });
     });
   }
@@ -561,7 +563,7 @@ class ListViewHome extends State<AdminChat> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  // height: 200,
+                  height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width / 5,
                   padding: EdgeInsets.all(20),
                   child: StreamBuilder<QuerySnapshot>(
@@ -612,7 +614,6 @@ class ListViewHome extends State<AdminChat> {
                           } else
                             return Card(
                                 child: Container(
-                              // height: 100,
                               width: MediaQuery.of(context).size.width / 5,
                               child: ListTile(
                                 onTap: () {
@@ -685,7 +686,7 @@ class ListViewHome extends State<AdminChat> {
                     ? Padding(
                         padding: EdgeInsets.all(20),
                         child: Container(
-                          width: MediaQuery.of(context).size.width * .65,
+                          width: MediaQuery.of(context).size.width / 2,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30),
@@ -728,235 +729,241 @@ class ListViewHome extends State<AdminChat> {
                                 ),
                               ),
                               Container(
+                                margin: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: Colors.grey.shade100),
-                                child: Container(
-                                  // padding: EdgeInsets.all(20),
-                                  height:
-                                      MediaQuery.of(context).size.height / 2,
-                                  width: MediaQuery.of(context).size.width * .5,
-                                  child: StreamBuilder<QuerySnapshot>(
-                                    stream: Globals.chatRef!
-                                        // .where('senderUid',
-                                        //     isEqualTo: receiverUid)
-                                        // .where('receiverUid',
-                                        //     isEqualTo:
-                                        //         Globals.auth.currentUser!.uid)
-                                        .orderBy('createdAt', descending: false)
-                                        .snapshots(),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                                      if (snapshot.hasError) {
-                                        return Center(
-                                            child:
-                                                Text('Something went wrong'));
-                                      }
+                                height: MediaQuery.of(context).size.height / 2,
+                                width: MediaQuery.of(context).size.width * .5,
+                                child: StreamBuilder<QuerySnapshot>(
+                                  stream: Globals.chatRef!
+                                      // .where('senderUid',
+                                      //     isEqualTo: receiverUid)
+                                      // .where('receiverUid',
+                                      //     isEqualTo:
+                                      //         Globals.auth.currentUser!.uid)
+                                      .orderBy('createdAt', descending: false)
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    if (snapshot.hasError) {
+                                      return Center(
+                                          child: Text('Something went wrong'));
+                                    }
 
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return Center(child: Text("Loading"));
-                                      }
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(child: Text("Loading"));
+                                    }
 
-                                      return new ListView.builder(
-                                        physics:
-                                            AlwaysScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: snapshot.data!.docs.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          var item = snapshot.data!.docs[index];
-                                          var newIndex = index + 1;
-                                          var message = snapshot
-                                              .data!.docs[index]['message'];
-                                          final DateTime timestamp = (snapshot
-                                                      .data!.docs[index]
-                                                  ['createdAt'] as Timestamp)
-                                              .toDate();
-                                          final DateTime now = DateTime.now();
-                                          final DateFormat formatter =
-                                              DateFormat('yyyy-MM-dd hh:mm');
-                                          final String createdAt =
-                                              formatter.format(timestamp);
-                                          // print(createdAt);
-                                          print(snapshot.data!.docs[index]
-                                              .data());
+                                    return new ListView.builder(
+                                      physics: AlwaysScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data!.docs.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        var item = snapshot.data!.docs[index];
+                                        var newIndex = index + 1;
+                                        var message = snapshot.data!.docs[index]
+                                            ['message'];
+                                        final DateTime timestamp =
+                                            (snapshot.data!.docs[index]
+                                                    ['createdAt'] as Timestamp)
+                                                .toDate();
+                                        final DateTime now = DateTime.now();
+                                        final DateFormat formatter =
+                                            DateFormat('yyyy-MM-dd hh:mm');
+                                        final String createdAt =
+                                            formatter.format(timestamp);
+                                        // print(createdAt);
+                                        print(
+                                            snapshot.data!.docs[index].data());
 
-                                          bool isDisplay =
-                                              ((snapshot.data!.docs[index]
-                                                              ['senderUid'] ==
-                                                          Globals
-                                                              .auth
-                                                              .currentUser!
-                                                              .uid) ||
-                                                      (snapshot.data!.docs[index]
-                                                              ['receiverUid'] ==
-                                                          Globals
-                                                              .auth
-                                                              .currentUser!
-                                                              .uid)) &&
-                                                  ((snapshot.data!.docs[index]
-                                                              ['senderUid'] ==
-                                                          receiverUid) ||
-                                                      (snapshot.data!.docs[index]
-                                                              ['receiverUid'] ==
-                                                          receiverUid));
+                                        bool isDisplay =
+                                            ((snapshot.data!.docs[index]
+                                                            ['senderUid'] ==
+                                                        Globals
+                                                            .auth
+                                                            .currentUser!
+                                                            .uid) ||
+                                                    (snapshot.data!.docs[index]
+                                                            ['receiverUid'] ==
+                                                        Globals
+                                                            .auth
+                                                            .currentUser!
+                                                            .uid)) &&
+                                                ((snapshot.data!.docs[index]
+                                                            ['senderUid'] ==
+                                                        receiverUid) ||
+                                                    (snapshot.data!.docs[index]
+                                                            ['receiverUid'] ==
+                                                        receiverUid));
 
-                                          bool isMe = snapshot.data!.docs[index]
-                                                  ['senderUid'] ==
-                                              Globals.auth.currentUser!.uid;
+                                        bool isMe = snapshot.data!.docs[index]
+                                                ['senderUid'] ==
+                                            Globals.auth.currentUser!.uid;
 
-                                          bool isReceiver = snapshot.data!
-                                                  .docs[index]['receiverUid'] ==
-                                              uid;
+                                        bool isReceiver = snapshot.data!
+                                                .docs[index]['receiverUid'] ==
+                                            uid;
 
-                                          // var firstName = snapshot.data!.docs[index]
-                                          //     ['firstName'];
-                                          // var lastName = snapshot.data!.docs[index]
-                                          //     ['lastName'];
-                                          // var displayName = snapshot
-                                          //     .data!.docs[index]['displayName'];
-                                          // var password = snapshot.data!.docs[index]
-                                          //     ['password'];
-                                          // var userName = snapshot.data!.docs[index]
-                                          //     ['userName'];
-                                          // var bio =
-                                          //     snapshot.data!.docs[index]['bio'];
-                                          // var photoUrl = snapshot.data!.docs[index]
-                                          //     ['photoUrl'];
-                                          // var phoneNumber = snapshot
-                                          //     .data!.docs[index]['phoneNumber'];
-                                          // var userType = snapshot.data!.docs[index]
-                                          //     ['userType'];
-                                          // var publicUrl = snapshot.data!.docs[index]
-                                          //     ['publicUrl'];
-                                          // var isAdmin =
-                                          //     snapshot.data!.docs[index]['isAdmin'];
-                                          // var classValue =
-                                          //     snapshot.data!.docs[index]['class'];
-                                          return Container(
-                                              padding: EdgeInsets.only(
-                                                  left: 20,
-                                                  right: 20,
-                                                  top: 3,
-                                                  bottom: 3),
-                                              child: isDisplay
-                                                  ? (isMe
-                                                      ? Column(
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                    flex: 4,
-                                                                    child:
-                                                                        Container()),
-                                                                Expanded(
-                                                                    flex: 5,
-                                                                    child:
-                                                                        Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Colors
-                                                                            .blueAccent,
-                                                                        borderRadius: BorderRadius.only(
-                                                                            topRight:
-                                                                                Radius.circular(10.0),
-                                                                            bottomRight: Radius.circular(0.0),
-                                                                            topLeft: Radius.circular(10.0),
-                                                                            bottomLeft: Radius.circular(10.0)),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(8.0),
-                                                                        child:
-                                                                            Text(
-                                                                          message,
-                                                                          style:
-                                                                              GoogleFonts.redHatDisplay(color: Colors.white),
-                                                                        ),
-                                                                      ),
-                                                                    )),
-                                                              ],
-                                                            ),
-                                                            Align(
-                                                                alignment: Alignment
-                                                                    .centerRight,
-                                                                child: Text(
-                                                                  createdAt
-                                                                      .toString(),
-                                                                  style: TextStyle(
+                                        // var firstName = snapshot.data!.docs[index]
+                                        //     ['firstName'];
+                                        // var lastName = snapshot.data!.docs[index]
+                                        //     ['lastName'];
+                                        // var displayName = snapshot
+                                        //     .data!.docs[index]['displayName'];
+                                        // var password = snapshot.data!.docs[index]
+                                        //     ['password'];
+                                        // var userName = snapshot.data!.docs[index]
+                                        //     ['userName'];
+                                        // var bio =
+                                        //     snapshot.data!.docs[index]['bio'];
+                                        // var photoUrl = snapshot.data!.docs[index]
+                                        //     ['photoUrl'];
+                                        // var phoneNumber = snapshot
+                                        //     .data!.docs[index]['phoneNumber'];
+                                        // var userType = snapshot.data!.docs[index]
+                                        //     ['userType'];
+                                        // var publicUrl = snapshot.data!.docs[index]
+                                        //     ['publicUrl'];
+                                        // var isAdmin =
+                                        //     snapshot.data!.docs[index]['isAdmin'];
+                                        // var classValue =
+                                        //     snapshot.data!.docs[index]['class'];
+                                        return Container(
+                                            margin: EdgeInsets.all(10),
+                                            padding: EdgeInsets.only(
+                                                left: 20,
+                                                right: 20,
+                                                top: 3,
+                                                bottom: 3),
+                                            child: isDisplay
+                                                ? (isMe
+                                                    ? Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                  flex: 4,
+                                                                  child:
+                                                                      Container()),
+                                                              Expanded(
+                                                                  flex: 5,
+                                                                  child:
+                                                                      Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
                                                                       color: Colors
-                                                                          .black38,
-                                                                      fontSize:
-                                                                          8),
-                                                                ))
-                                                          ],
-                                                        )
-                                                      : Column(
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                    flex: 5,
+                                                                          .blueAccent,
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topRight: Radius.circular(
+                                                                              10.0),
+                                                                          bottomRight: Radius.circular(
+                                                                              0.0),
+                                                                          topLeft: Radius.circular(
+                                                                              10.0),
+                                                                          bottomLeft:
+                                                                              Radius.circular(10.0)),
+                                                                    ),
                                                                     child:
-                                                                        Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        borderRadius: BorderRadius.only(
-                                                                            topRight:
-                                                                                Radius.circular(10.0),
-                                                                            bottomRight: Radius.circular(10.0),
-                                                                            topLeft: Radius.circular(10.0),
-                                                                            bottomLeft: Radius.circular(0.0)),
-                                                                      ),
+                                                                        Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
                                                                       child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(8.0),
-                                                                        child:
-                                                                            Text(
-                                                                          message,
-                                                                          style:
-                                                                              GoogleFonts.redHatDisplay(color: Colors.black87),
-                                                                        ),
+                                                                          Text(
+                                                                        message,
+                                                                        style: GoogleFonts.redHatDisplay(
+                                                                            color:
+                                                                                Colors.white),
                                                                       ),
-                                                                    )),
-                                                                Expanded(
-                                                                    flex: 4,
-                                                                    child:
-                                                                        Container()),
-                                                              ],
-                                                            ),
-                                                            Align(
-                                                                alignment: Alignment
-                                                                    .centerLeft,
-                                                                child: Text(
-                                                                  createdAt
-                                                                      .toString(),
-                                                                  style: TextStyle(
+                                                                    ),
+                                                                  )),
+                                                            ],
+                                                          ),
+                                                          Align(
+                                                              alignment: Alignment
+                                                                  .centerRight,
+                                                              child: Text(
+                                                                createdAt
+                                                                    .toString(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black38,
+                                                                    fontSize:
+                                                                        8),
+                                                              ))
+                                                        ],
+                                                      )
+                                                    : Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                  flex: 5,
+                                                                  child:
+                                                                      Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
                                                                       color: Colors
-                                                                          .black38,
-                                                                      fontSize:
-                                                                          8),
-                                                                ))
-                                                          ],
-                                                        ))
-                                                  : Container());
-                                        },
+                                                                          .white,
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topRight: Radius.circular(
+                                                                              10.0),
+                                                                          bottomRight: Radius.circular(
+                                                                              10.0),
+                                                                          topLeft: Radius.circular(
+                                                                              10.0),
+                                                                          bottomLeft:
+                                                                              Radius.circular(0.0)),
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child:
+                                                                          Text(
+                                                                        message,
+                                                                        style: GoogleFonts.redHatDisplay(
+                                                                            color:
+                                                                                Colors.black87),
+                                                                      ),
+                                                                    ),
+                                                                  )),
+                                                              Expanded(
+                                                                  flex: 4,
+                                                                  child:
+                                                                      Container()),
+                                                            ],
+                                                          ),
+                                                          Align(
+                                                              alignment: Alignment
+                                                                  .centerLeft,
+                                                              child: Text(
+                                                                createdAt
+                                                                    .toString(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black38,
+                                                                    fontSize:
+                                                                        8),
+                                                              ))
+                                                        ],
+                                                      ))
+                                                : Container());
+                                      },
 
-                                        // children: snapshot.data!.docs
-                                        //     .map((DocumentSnapshot document) {
-                                        //   return new ListTile(
-                                        //     title: new Text(document.data()?['category']),
-                                        //     // subtitle: new Text(document.data()?['subject']),
-                                        //   );
-                                        // }).toList(),
-                                      );
-                                    },
-                                  ),
+                                      // children: snapshot.data!.docs
+                                      //     .map((DocumentSnapshot document) {
+                                      //   return new ListTile(
+                                      //     title: new Text(document.data()?['category']),
+                                      //     // subtitle: new Text(document.data()?['subject']),
+                                      //   );
+                                      // }).toList(),
+                                    );
+                                  },
                                 ),
                               ),
                               Container(
@@ -1033,7 +1040,8 @@ class ListViewHome extends State<AdminChat> {
                         ),
                       )
                     : Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 30),
                         child: DottedBorder(
                           borderType: BorderType.RRect,
                           radius: Radius.circular(12),
@@ -1042,7 +1050,7 @@ class ListViewHome extends State<AdminChat> {
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                             child: Container(
                               height: MediaQuery.of(context).size.height * .7,
-                              width: MediaQuery.of(context).size.width * .65,
+                              width: MediaQuery.of(context).size.width / 2,
                               color: Colors.grey.shade300,
                               child: Center(
                                 child: Text(

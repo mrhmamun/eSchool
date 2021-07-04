@@ -25,6 +25,7 @@ class _TeacherSubjectsListState extends State<TeacherSubjectsList> {
 
   var _class;
   var _teacher;
+  var displayName;
 
   @override
   void initState() {
@@ -34,6 +35,15 @@ class _TeacherSubjectsListState extends State<TeacherSubjectsList> {
 
     // TODO: implement initState
     super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Globals.userRef.doc(Globals.auth.currentUser!.uid).get().then((value) {
+        if (mounted) {
+          setState(() {
+            displayName = value['displayName'];
+          });
+        }
+      });
+    });
   }
 
   @override
@@ -185,10 +195,12 @@ class _TeacherSubjectsListState extends State<TeacherSubjectsList> {
                               ? Globals.subjectRef
                                   ?.where('class',
                                       isEqualTo: _classValue.toString())
-                                  .where('teacher', isEqualTo: 'testteacher1')
+                                  .where('teacher',
+                                      isEqualTo: displayName.toString())
                                   .snapshots()
                               : Globals.subjectRef!
-                                  .where('teacher', isEqualTo: 'testteacher1')
+                                  .where('teacher',
+                                      isEqualTo: displayName.toString())
                                   .snapshots(),
                           builder: (BuildContext context,
                               AsyncSnapshot<QuerySnapshot> snapshot) {

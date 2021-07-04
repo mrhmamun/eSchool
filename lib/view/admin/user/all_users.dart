@@ -179,7 +179,7 @@ class _AllUsersState extends State<AllUsers> {
                               itemBuilder: (BuildContext context, int index) {
                                 var item = snapshot.data!.docs[index];
                                 var newIndex = index + 1;
-                                email = snapshot.data!.docs[index]['email'];
+                                var email = snapshot.data!.docs[index]['email'];
                                 var uid = snapshot.data!.docs[index]['uid'];
                                 var firstName =
                                     snapshot.data!.docs[index]['firstName'];

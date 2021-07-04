@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eschool/global/globals.dart';
 import 'package:eschool/view/teacher/test/edit_test_details.dart';
 import 'package:eschool/view/teacher/test/result_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,9 +38,11 @@ class _AddTestState extends State<AddTest> {
     addTestNameController = TextEditingController();
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      setState(() {
-        _username = prefs.getString('userName');
-      });
+      if (mounted) {
+        setState(() {
+          _username = prefs.getString('displayName');
+        });
+      }
 
       print(_username);
     });
@@ -275,8 +277,8 @@ class _AddTestState extends State<AddTest> {
                                       )),
                                   child: StreamBuilder(
                                     stream: Globals.subjectRef
-                                        ?.where('teacher', isEqualTo: _username)
-                                        .where('class', isEqualTo: _class)
+                                        ?.where('class', isEqualTo: _class)
+                                        .where('teacher', isEqualTo: _username)
                                         .snapshots(),
                                     builder: (BuildContext context,
                                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -428,8 +430,7 @@ class _AddTestState extends State<AddTest> {
                                   "testName": testName,
                                   "class": _class,
                                   'subject': _subejct,
-                                  'dateTime':
-                                      _controller2.text,
+                                  'dateTime': _controller2.text,
                                   'results': [],
                                 }).then((value) {
                                   ScaffoldMessenger.of(context).showSnackBar(

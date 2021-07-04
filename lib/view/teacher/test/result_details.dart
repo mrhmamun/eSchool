@@ -31,7 +31,7 @@ class _ResultDetailsState extends State<ResultDetails> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController _controller2;
   late TextEditingController resultDetailsNameController;
-  late TextEditingController addTestNameController;
+  late TextEditingController addResultController;
   bool isLoading = false;
   String? testName;
   String? _class;
@@ -45,7 +45,8 @@ class _ResultDetailsState extends State<ResultDetails> {
   String? results;
   String? studentUid;
   String? editResults;
-
+  var uidList = [];
+  var displayList = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -56,7 +57,7 @@ class _ResultDetailsState extends State<ResultDetails> {
     _valueChanged2 = widget.dateTime;
     Intl.defaultLocale = 'US';
     _controller2 = TextEditingController(text: widget.dateTime.toString());
-    addTestNameController = TextEditingController();
+    addResultController = TextEditingController();
     resultDetailsNameController = TextEditingController(text: widget.testName);
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -79,13 +80,15 @@ class _ResultDetailsState extends State<ResultDetails> {
     });
   }
 
+  int listIndex = 0;
+
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     _controller2.dispose();
     resultDetailsNameController.dispose();
-    addTestNameController.dispose();
+    addResultController.dispose();
   }
 
   @override
@@ -255,7 +258,7 @@ class _ResultDetailsState extends State<ResultDetails> {
                                     MediaQuery.of(context).size.width / 2 - 200,
                                 height: 50,
                                 child: TextFormField(
-                                  controller: addTestNameController,
+                                  controller: addResultController,
                                   showCursor: true,
                                   // initialValue: testName,
                                   inputFormatters: <TextInputFormatter>[
@@ -351,17 +354,12 @@ class _ResultDetailsState extends State<ResultDetails> {
                                             child:
                                                 Text('Please Select a Student'),
                                           ), // Not necessary for Option 1
-                                          value: student,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              student = newValue.toString();
-                                            });
-                                          },
                                           items: snapshot.data!.docs
                                               .map((location) {
-                                            studentUid =
-                                                location['uid'].toString();
-                                            print(studentUid);
+                                            // displayList.add(
+                                            //     location['displayName']
+                                            //         .toString());
+                                            // print(displayList);
 
                                             return DropdownMenuItem(
                                               child: Padding(
@@ -375,6 +373,12 @@ class _ResultDetailsState extends State<ResultDetails> {
                                                   .toString(),
                                             );
                                           }).toList(),
+                                          value: student,
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              student = newValue.toString();
+                                            });
+                                          },
                                         ),
                                       );
                                     },
@@ -403,25 +407,39 @@ class _ResultDetailsState extends State<ResultDetails> {
                                   ),
                                 );
                               } else if (results != null && student != null) {
-                                Globals.resultRef?.add({
-                                  'teacherUid': Globals.auth.currentUser!.uid,
-                                  "testName": testName,
-                                  "class": _class,
-                                  'subject': _subejct,
-                                  'timestamp': FieldValue.serverTimestamp(),
-                                  'studentUid': studentUid,
-                                  'student': student,
-                                  'results': results,
+                                Globals.userRef
+                                    .where('displayName',
+                                        isEqualTo: student.toString())
+                                    .get()
+                                    .then((value) {
+                                  value.docs.forEach((element) {
+                                    setState(() {
+                                      studentUid = element['uid'];
+                                    });
+                                    print('uid');
+                                    print(element['uid']);
+                                  });
                                 }).then((value) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    Globals.customSnackBar(
-                                      content: 'Results Added Successfully!',
-                                    ),
-                                  );
+                                  Globals.resultRef?.add({
+                                    'teacherUid': Globals.auth.currentUser!.uid,
+                                    "testName": testName,
+                                    "class": _class,
+                                    'subject': _subejct,
+                                    'timestamp': FieldValue.serverTimestamp(),
+                                    'studentUid': studentUid,
+                                    'student': student,
+                                    'results': results,
+                                  }).then((value) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      Globals.customSnackBar(
+                                        content: 'Results Added Successfully!',
+                                      ),
+                                    );
 
-                                  setState(() {
-                                    results = null;
-                                    student = null;
+                                    setState(() {
+                                      addResultController.clear();
+                                      student = null;
+                                    });
                                   });
                                 });
                               } else {

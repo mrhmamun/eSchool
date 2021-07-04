@@ -58,9 +58,11 @@ class _StudentResultDetailsState extends State<StudentResultDetails> {
         TextEditingController(text: widget.testName);
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      setState(() {
-        _username = prefs.getString('userName');
-      });
+      if (mounted) {
+        setState(() {
+          _username = prefs.getString('userName');
+        });
+      }
 
       print(_username);
     });
@@ -69,11 +71,13 @@ class _StudentResultDetailsState extends State<StudentResultDetails> {
 
   Future<void> _getValue() async {
     await Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        //_initialValue = '2000-10-22 14:30';
+      if (mounted) {
+        setState(() {
+          //_initialValue = '2000-10-22 14:30';
 
-        _controller2.text = widget.dateTime.toString();
-      });
+          _controller2.text = widget.dateTime.toString();
+        });
+      }
     });
   }
 
@@ -263,16 +267,19 @@ class _StudentResultDetailsState extends State<StudentResultDetails> {
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           var item = snapshot.data!.docs[index];
-                                          var newIndex = index + 1;
-                                          var student = snapshot
-                                              .data!.docs[index]['student'];
+                                          // var newIndex = index + 1;
+                                          // var student = snapshot
+                                          //     .data!.docs[index]['student'];
                                           var singleResult = snapshot
                                               .data!.docs[index]['results'];
-                                          var testName = snapshot
-                                              .data!.docs[index]['testName'];
+                                          // var testName = snapshot
+                                          //     .data!.docs[index]['testName'];
+
+                                          print('singleResult');
+                                          print(singleResult);
 
                                           return Text(
-                                            singleResult,
+                                            singleResult.toString(),
                                             style: TextStyle(
                                                 color: Colors.black87),
                                           );
