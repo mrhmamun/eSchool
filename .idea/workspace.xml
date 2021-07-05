@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfb287da-4879-4f41-b70f-6e0d642f3306" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQvd2Vi.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQvd2Vi.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/admin/chat/admin_chat.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/admin/chat/admin_chat.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/admin/subjects/subjects.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/admin/subjects/subjects.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/admin/user/all_users.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/admin/user/all_users.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/student/home/student_result_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/student/home/student_result_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/teacher/subjects/teacher_subjects_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/teacher/subjects/teacher_subjects_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/teacher/test/add_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/teacher/test/add_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/teacher/test/result_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/teacher/test/result_details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625207848598</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="chat added">
+      <created>1625377945799</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1625377945799</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -192,12 +190,12 @@
     <state x="100" y="123" width="1080" height="510" key="AVDManager/0.23.1280.713@0.23.1280.713" timestamp="1623743143702" />
     <state x="100" y="123" width="1080" height="512" key="AVDManager/0.23.1280.715@0.23.1280.715" timestamp="1625314999226" />
     <state x="100" y="123" width="1080" height="512" key="AVDManager/0.23.1280.716@0.23.1280.716" timestamp="1623905624981" />
-    <state x="142" y="23" key="CommitChangelistDialog2" timestamp="1625207848004">
+    <state x="142" y="23" key="CommitChangelistDialog2" timestamp="1625377945206">
       <screen x="0" y="23" width="1280" height="715" />
     </state>
     <state x="198" y="23" key="CommitChangelistDialog2/0.23.1280.710@0.23.1280.710" timestamp="1625204972644" />
     <state x="5" y="23" key="CommitChangelistDialog2/0.23.1280.713@0.23.1280.713" timestamp="1624901177758" />
-    <state x="142" y="23" key="CommitChangelistDialog2/0.23.1280.715@0.23.1280.715" timestamp="1625207848004" />
+    <state x="142" y="23" key="CommitChangelistDialog2/0.23.1280.715@0.23.1280.715" timestamp="1625377945206" />
     <state x="5" y="23" key="CommitChangelistDialog2/0.23.1280.716@0.23.1280.716" timestamp="1625163119853" />
     <state width="1037" height="187" key="GridCell.Tab.0.bottom" timestamp="1625158098266">
       <screen x="0" y="0" width="1600" height="860" />
@@ -215,12 +213,12 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1037" height="187" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1625158098266" />
-    <state x="240" y="119" key="Vcs.Push.Dialog.v2" timestamp="1625207877459">
+    <state x="240" y="119" key="Vcs.Push.Dialog.v2" timestamp="1625377954231">
       <screen x="0" y="23" width="1280" height="715" />
     </state>
     <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.710@0.23.1280.710" timestamp="1625205568907" />
     <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.713@0.23.1280.713" timestamp="1624901206184" />
-    <state x="240" y="119" key="Vcs.Push.Dialog.v2/0.23.1280.715@0.23.1280.715" timestamp="1625207877459" />
+    <state x="240" y="119" key="Vcs.Push.Dialog.v2/0.23.1280.715@0.23.1280.715" timestamp="1625377954231" />
     <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.716@0.23.1280.716" timestamp="1625163158322" />
     <state x="100" y="123" width="1080" height="511" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1625202531594">
       <screen x="0" y="23" width="1280" height="710" />
