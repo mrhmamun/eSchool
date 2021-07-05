@@ -4,7 +4,7 @@ Live Demo: https://eschool-24646.web.app/
 
 Steps to run the project:
 
-  1. Clone the project on your local machine from here https://github.com/thealmamun/eschool
+  1. Clone the project on your local machine from here using command "git clone https://github.com/thealmamun/eschool.git"
   2. Open the project on Android Studio/ Visual Studio Code
   3. run command "flutter pub get" on project terminal
   4. run command "flutter doctor -v" on project terminal
