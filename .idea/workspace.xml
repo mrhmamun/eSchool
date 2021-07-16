@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfb287da-4879-4f41-b70f-6e0d642f3306" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_arm64_v8a_debug_1_0_0_241c87ad800beeab545ab867354d4683d5bfb6ce.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_armeabi_v7a_debug_1_0_0_241c87ad800beeab545ab867354d4683d5bfb6ce.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_flutter_embedding_debug_1_0_0_241c87ad800beeab545ab867354d4683d5bfb6ce.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_x86_64_debug_1_0_0_241c87ad800beeab545ab867354d4683d5bfb6ce.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_x86_debug_1_0_0_241c87ad800beeab545ab867354d4683d5bfb6ce.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +41,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
@@ -162,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625377945799</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="final version 1.0">
+      <created>1625466453232</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1625466453232</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -171,7 +187,8 @@
     <MESSAGE value="teacher view added" />
     <MESSAGE value="add test added" />
     <MESSAGE value="chat added" />
-    <option name="LAST_COMMIT_MESSAGE" value="chat added" />
+    <MESSAGE value="final version 1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="final version 1.0" />
   </component>
   <component name="WindowStateProjectService">
     <state x="508" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1625145326127">
@@ -189,10 +206,10 @@
     <state x="100" y="123" width="1080" height="510" key="AVDManager/0.23.1280.713@0.23.1280.713" timestamp="1623743143702" />
     <state x="100" y="123" width="1080" height="512" key="AVDManager/0.23.1280.715@0.23.1280.715" timestamp="1625314999226" />
     <state x="100" y="123" width="1080" height="512" key="AVDManager/0.23.1280.716@0.23.1280.716" timestamp="1623905624981" />
-    <state x="142" y="23" key="CommitChangelistDialog2" timestamp="1625377945206">
-      <screen x="0" y="23" width="1280" height="715" />
+    <state x="198" y="23" key="CommitChangelistDialog2" timestamp="1625466452859">
+      <screen x="0" y="23" width="1280" height="710" />
     </state>
-    <state x="198" y="23" key="CommitChangelistDialog2/0.23.1280.710@0.23.1280.710" timestamp="1625204972644" />
+    <state x="198" y="23" key="CommitChangelistDialog2/0.23.1280.710@0.23.1280.710" timestamp="1625466452859" />
     <state x="5" y="23" key="CommitChangelistDialog2/0.23.1280.713@0.23.1280.713" timestamp="1624901177758" />
     <state x="142" y="23" key="CommitChangelistDialog2/0.23.1280.715@0.23.1280.715" timestamp="1625377945206" />
     <state x="5" y="23" key="CommitChangelistDialog2/0.23.1280.716@0.23.1280.716" timestamp="1625163119853" />
@@ -212,10 +229,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1037" height="187" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1625158098266" />
-    <state x="240" y="119" key="Vcs.Push.Dialog.v2" timestamp="1625377954231">
-      <screen x="0" y="23" width="1280" height="715" />
+    <state x="240" y="118" key="Vcs.Push.Dialog.v2" timestamp="1625466460123">
+      <screen x="0" y="23" width="1280" height="710" />
     </state>
-    <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.710@0.23.1280.710" timestamp="1625205568907" />
+    <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.710@0.23.1280.710" timestamp="1625466460123" />
     <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.713@0.23.1280.713" timestamp="1624901206184" />
     <state x="240" y="119" key="Vcs.Push.Dialog.v2/0.23.1280.715@0.23.1280.715" timestamp="1625377954231" />
     <state x="240" y="118" key="Vcs.Push.Dialog.v2/0.23.1280.716@0.23.1280.716" timestamp="1625163158322" />
